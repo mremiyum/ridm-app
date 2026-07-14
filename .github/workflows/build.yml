@@ -1,6 +1,5 @@
 name: Build and Release APK
 
-# Bu otomasyon sadece v1.0.0 gibi bir etiket (tag) gönderdiğinde çalışır
 on:
   push:
     tags:
@@ -15,10 +14,10 @@ jobs:
       - name: 📦 Kodu Sunucuya Çek
         uses: actions/checkout@v4
 
-      - name: 🟢 Node.js Kurulumu (V18)
+      - name: 🟢 Node.js Kurulumu (V20)
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: ☕ Java (JDK 17) Kurulumu
@@ -28,7 +27,7 @@ jobs:
           java-version: '17'
 
       - name: 📥 Bağımlılıkları Yükle (NPM)
-        run: npm install
+        run: npm ci
 
       - name: 🚀 APK'yı Derle (Gradle)
         run: |
