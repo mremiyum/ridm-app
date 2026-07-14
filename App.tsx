@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
   StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, 
-  SafeAreaView, StatusBar, Modal, Platform, Image, Switch, BackHandler, Share, NativeEventEmitter, NativeModules, Alert,
+  SafeAreaView, StatusBar, Modal, Platform, Image, Switch, BackHandler, NativeEventEmitter, NativeModules, Alert,
   useWindowDimensions
 } from 'react-native';
 import { 
@@ -849,8 +849,8 @@ export default function App() {
                    />
                    
                    <TouchableOpacity style={styles.supportEmailBtn} onPress={() => Linking.openURL('mailto:mremiyum@proton.me')}>
-                       <Mail size={12} color={theme.isDarkTheme ? "#000" : "#fff"} />
-                       <Text style={[styles.supportEmailText, { color: theme.isDarkTheme ? "#000" : "#fff" }]}>{t('contactMe')} (mremiyum@proton.me)</Text>
+                       <Mail size={12} color={appSettings.isDarkTheme ? "#000" : "#fff"} />
+                       <Text style={[styles.supportEmailText, { color: appSettings.isDarkTheme ? "#000" : "#fff" }]}>{t('contactMe')} (mremiyum@proton.me)</Text>
                    </TouchableOpacity>
                </View>
             </View>
@@ -957,7 +957,6 @@ export default function App() {
           </View>
         </View>
       </Modal>
-
     </SafeAreaView>
   );
 }
