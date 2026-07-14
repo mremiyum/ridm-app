@@ -1,50 +1,46 @@
-name: Ridm Android Production Build
+name: Build and Release APK
 
+# Bu otomasyon sadece v1.0.0 gibi bir etiket (tag) gönderdiğinde çalışır
 on:
   push:
     tags:
-      - 'v*' # Ne zaman v1.0.0 gibi bir sürüm etiketi pushlarsan çalışır
+      - 'v*' 
 
 jobs:
   build:
+    name: Android APK Derlemesi
     runs-on: ubuntu-latest
 
     steps:
-      - name: 1. Kodu GitHub Bulutuna Çek
+      - name: 📦 Kodu Sunucuya Çek
         uses: actions/checkout@v4
 
-      - name: 2. Node.js Ortamını Kur
+      - name: 🟢 Node.js Kurulumu (V18)
         uses: actions/setup-node@v4
         with:
-          node-size: 18
+          node-version: '18'
           cache: 'npm'
 
-      - name: 3. Java JDK 17 Kur (Android için Şart)
+      - name: ☕ Java (JDK 17) Kurulumu
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: 4. Android SDK Motorunu Hazırla
-        uses: subosito/android-action@v2
-        with:
-          api-level: 34
-          build-tools: 34.0.0
+      - name: 📥 Bağımlılıkları Yükle (NPM)
+        run: npm install
 
-      - name: 5. Bağımlılıkları ve Expo Modüllerini İndir
-        run: npm ci
-
-      - name: 6. Gradle Çalıştırma İznini Ver (Chmod)
-        run: chmod +x android/gradlew
-
-      - name: 7. APK'yı Google Sunucusunda Canlı Derle
+      - name: 🚀 APK'yı Derle (Gradle)
         run: |
           cd android
+          chmod +x gradlew
           ./gradlew assembleRelease --no-daemon
 
-      - name: 8. Üretilen Güvenli APK'yı GitHub Releases Sürümüne Otomatik Ekle
+      - name: 🎁 GitHub Releases'e Otomatik Yükle
         uses: softprops/action-gh-release@v1
         with:
           files: android/app/build/outputs/apk/release/app-release.apk
+          name: Ridm ${{ github.ref_name }}
+          body: "Ridm Açık Kaynak Sürümü. Bu sürüm doğrudan GitHub Actions tarafından orijinal kaynak kodlar kullanılarak bulutta derlenmiştir."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
