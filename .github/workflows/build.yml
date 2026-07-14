@@ -1,0 +1,50 @@
+name: Ridm Android Production Build
+
+on:
+  push:
+    tags:
+      - 'v*' # Ne zaman v1.0.0 gibi bir sürüm etiketi pushlarsan çalışır
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Kodu GitHub Bulutuna Çek
+        uses: actions/checkout@v4
+
+      - name: 2. Node.js Ortamını Kur
+        uses: actions/setup-node@v4
+        with:
+          node-size: 18
+          cache: 'npm'
+
+      - name: 3. Java JDK 17 Kur (Android için Şart)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: 4. Android SDK Motorunu Hazırla
+        uses: subosito/android-action@v2
+        with:
+          api-level: 34
+          build-tools: 34.0.0
+
+      - name: 5. Bağımlılıkları ve Expo Modüllerini İndir
+        run: npm ci
+
+      - name: 6. Gradle Çalıştırma İznini Ver (Chmod)
+        run: chmod +x android/gradlew
+
+      - name: 7. APK'yı Google Sunucusunda Canlı Derle
+        run: |
+          cd android
+          ./gradlew assembleRelease --no-daemon
+
+      - name: 8. Üretilen Güvenli APK'yı GitHub Releases Sürümüne Otomatik Ekle
+        uses: softprops/action-gh-release@v1
+        with:
+          files: android/app/build/outputs/apk/release/app-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
