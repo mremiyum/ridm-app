@@ -5,7 +5,9 @@ export const DICTIONARY = {
     helpSmartTitle: "• Akıllı Klasörleme:", helpSmartDesc: "Aktif edildiğinde indirmeleriniz türlerine göre (Videos, Audio vb.) otomatik olarak alt klasörlere ayrılır.",
     helpSubTitle: "• Altyazı Tercihi (Toplu İndirmeler):", helpSubDesc: "Ayarlar menüsündeki 'Altyazı Tercih Sırası', Kanal ve Playlist gibi toplu indirmelerde her video için size tek tek altyazı sorma zahmetinden kurtarır. İndirme ekranında 'Oto Sıralı' seçeneğini işaretlerseniz; sistem her videoda 1. dile bakar, bulamazsa 2. dile geçer ve bulduğunu gömer. 'Sadece' seçeneği ise yalnızca belirttiğiniz 1. dil videoda mevcutsa indirir.",
     helpCookiesTitle: "• Cookies / Kimlik Doğrulama:", helpCookiesDesc: "Instagram veya yaş kısıtlamalı YouTube içeriklerini indirebilmek için hesabınızı uygulamaya tanıtmanız gerekir:\n1. Bilgisayarınızdaki tarayıcıya (Chrome vb.) \"Get cookies.txt LOCALLY\" eklentisini kurun.\n2. Tarayıcıdan YouTube veya Instagram'a girip oturum açın.\n3. Eklenti simgesine tıklayıp 'Export' butonu ile çerezleri \".txt\" dosyası olarak bilgisayarınıza indirin.\n4. Bu dosyayı telefonunuza gönderin.\n5. Uygulama Ayarlarından \"Cookies Seçiniz\" butonuna tıklayıp bu dosyayı uygulamaya bağlayın.",
-    supportTitle: "İletişim & Destek", supportDesc: "Ridm tamamen ücretsiz ve açık kaynaklıdır. Projeye destek olmak veya kahve ısmarlamak isterseniz bağış yapabilir, hata bildirimleri için mail atabilirsiniz.", contactMe: "E-Posta Gönder", donateWallet: "USDT (TRC20) Cüzdanı",
+    
+    supportTitle: "İletişim & Destek", supportDesc: "Ridm tamamen ücretsiz ve açık kaynaklıdır. Projeye destek olmak için bağış yapabilir, iletişim için aşağıdaki mail adresinden ulaşabilirsiniz.", quote: "Cömertin yemeği şifadır, cimrinin yemeği hastalıktır.", donateBtn: "Destek Ol", copied: "Kopyalandı!", copy: "Kopyala",
+    
     exitTitle: "Çıkış Yap", exitGraceful: "Yarım kalanları bitir ve çık", exitForce: "Zorla çıkış yap", errNoInternet: "İnternet bağlantınız yok.", errLocation: "Lütfen önce Ayarlar menüsünden indirme klasörü seçiniz.", errDuplicate: "Bu link mevcut oturumda var.", errServer: "Sunucu yanıt vermedi."
   },
   EN: {
@@ -14,7 +16,9 @@ export const DICTIONARY = {
     helpSmartTitle: "• Smart Folders:", helpSmartDesc: "When activated, downloads are sorted into subfolders by type.",
     helpSubTitle: "• Subtitle Preference:", helpSubDesc: "The system checks for the 1st language, then the 2nd, and embeds the first one it finds automatically.",
     helpCookiesTitle: "• Cookies / Authentication:", helpCookiesDesc: "To download Instagram or age-restricted YouTube content, you must link your account:\n1. Install 'Get cookies.txt LOCALLY' extension on your desktop browser.\n2. Log in to YouTube or Instagram.\n3. Export cookies as a '.txt' file.\n4. Send this file to your phone.\n5. Link it via 'Select Cookies' in App Settings.",
-    supportTitle: "Contact & Support", supportDesc: "Ridm is completely free and open-source. You can donate to buy me a coffee or send an email for bug reports.", contactMe: "Send Email", donateWallet: "USDT (TRC20) Wallet",
+    
+    supportTitle: "Contact & Support", supportDesc: "Ridm is completely free and open-source. You can donate to support the project and contact us via the email address below.", quote: "The generous' food heals, the miser's food sickens.", donateBtn: "Donate", copied: "Copied!", copy: "Copy",
+    
     exitTitle: "Exit", exitGraceful: "Finish pending and exit", exitForce: "Force Exit", errNoInternet: "No internet connection.", errLocation: "Please select a download folder first.", errDuplicate: "Link already exists.", errServer: "Server error."
   },
   AR: {
@@ -23,7 +27,9 @@ export const DICTIONARY = {
     helpSmartTitle: "• المجلدات الذكية:", helpSmartDesc: "فرز التنزيلات تلقائياً في مجلدات.",
     helpSubTitle: "• تفضيل الترجمة:", helpSubDesc: "دمج الترجمات تلقائياً حسب اللغات المفضلة.",
     helpCookiesTitle: "• ملفات تعريف الارتباط / المصادقة:", helpCookiesDesc: "لتنزيل محتوى مقيد، يجب ربط حسابك بملف cookies.txt.",
-    supportTitle: "التواصل والدعم", supportDesc: "Ridm مجاني ومفتوح المصدر. يمكنك التبرع لدعم المشروع أو إرسال بريد إلكتروني للإبلاغ عن الأخطاء.", contactMe: "ارسل إيميل", donateWallet: "محفظة USDT (TRC20)",
+    
+    supportTitle: "التواصل والدعم", supportDesc: "تطبيق Ridm مجاني تمامًا ومفتوح المصدر. يمكنك التبرع لدعم المشروع والتواصل عبر عنوان البريد الإلكتروني أدناه.", quote: "طَعَامُ الْجَوَادِ دَوَاءٌ، وَطَعَامُ الْبَخِيلِ دَاءٌ", donateBtn: "ادعمنا", copied: "تم النسخ!", copy: "ينسخ",
+    
     exitTitle: "خروج", exitGraceful: "إنهاء المعلق", exitForce: "خروج إجباري", errNoInternet: "لا يوجد إنترنت.", errLocation: "حدد مجلد التنزيل.", errDuplicate: "الرابط موجود.", errServer: "خطأ في الخادم."
   },
   ZH: {
@@ -32,7 +38,9 @@ export const DICTIONARY = {
     helpSmartTitle: "• 智能文件夹：", helpSmartDesc: "按类型自动分类文件。",
     helpSubTitle: "• 字幕偏好：", helpSubDesc: "自动查找并嵌入首选字幕。",
     helpCookiesTitle: "• 身份验证：", helpCookiesDesc: "使用 cookies.txt 下载受限内容。",
-    supportTitle: "联系与支持", supportDesc: "Ridm 完全免费且开源。您可以捐赠以支持该项目或发送电子邮件报告错误。", contactMe: "发送邮件", donateWallet: "USDT (TRC20) 钱包",
+    
+    supportTitle: "联系与支持", supportDesc: "Ridm完全免费且开源。您可以捐赠以支持该项目，并通过以下电子邮件地址与我们联系。", quote: "慷慨者的食物是良药，吝啬者的食物是毒药。", donateBtn: "捐赠", copied: "已复制！", copy: "复制",
+    
     exitTitle: "退出", exitGraceful: "完成待处理", exitForce: "强制退出", errNoInternet: "无网络。", errLocation: "请选择文件夹。", errDuplicate: "链接已存在。", errServer: "服务器错误。"
   },
   HI: {
@@ -41,7 +49,9 @@ export const DICTIONARY = {
     helpSmartTitle: "• स्मार्ट फ़ोल्डर:", helpSmartDesc: "स्मार्ट फ़ोल्डर स्वतः सॉर्ट करता है।",
     helpSubTitle: "• उपशीर्षक प्राथमिकता:", helpSubDesc: "स्वचालित रूप से उपशीर्षक एम्बेड करेगा।",
     helpCookiesTitle: "• प्रमाणीकरण:", helpCookiesDesc: "प्रतिबंधित सामग्री डाउनलोड करने के लिए अपना खाता लिंक करें (cookies.txt)।",
-    supportTitle: "संपर्क और समर्थन", supportDesc: "Ridm मुफ्त और ओपन-सोर्स है। आप प्रोजेक्ट का समर्थन करने के लिए दान कर सकते हैं या बग रिपोर्ट के लिए ईमेल कर सकते हैं।", contactMe: "ईमेल भेजें", donateWallet: "USDT (TRC20) वॉलेट",
+    
+    supportTitle: "संपर्क और समर्थन", supportDesc: "Ridm पूरी तरह से मुफ्त और ओपन-सोर्स है। आप प्रोजेक्ट का समर्थन करने के लिए दान कर सकते हैं और नीचे दिए गए ईमेल पते पर संपर्क कर सकते हैं।", quote: "उदार व्यक्ति का भोजन दवा है, और कंजूस का भोजन बीमारी है।", donateBtn: "दान करें", copied: "कॉपी किया गया!", copy: "कॉपी",
+    
     exitTitle: "बाहर जाएं", exitGraceful: "लंबित समाप्त करें", exitForce: "बलपूर्वक बाहर जाएं", errNoInternet: "इंटरनेट नहीं है।", errLocation: "फ़ोल्डर चुनें।", errDuplicate: "लिंक मौजूद है।", errServer: "सर्वर त्रुटि।"
   },
   ES: {
@@ -50,7 +60,9 @@ export const DICTIONARY = {
     helpSmartTitle: "• Carpetas inteligentes:", helpSmartDesc: "Clasifica automáticamente las descargas.",
     helpSubTitle: "• Orden de Subtítulos:", helpSubDesc: "El sistema buscará e incrustará subtítulos automáticamente.",
     helpCookiesTitle: "• Autenticación:", helpCookiesDesc: "Utilice cookies.txt para descargar contenido restringido.",
-    supportTitle: "Contacto y Apoyo", supportDesc: "Ridm es gratuito y de código abierto. Puedes donar para apoyar el proyecto o enviar un correo para informar de errores.", contactMe: "Enviar Correo", donateWallet: "Billetera USDT (TRC20)",
+    
+    supportTitle: "Contacto y Soporte", supportDesc: "Ridm es completamente gratuito y de código abierto. Puede donar para apoyar el proyecto y contactarnos a través del correo electrónico a continuación.", quote: "La comida del generoso es medicina, la comida del avaro es enfermedad.", donateBtn: "Donar", copied: "¡Copiado!", copy: "Copiar",
+    
     exitTitle: "Salir", exitGraceful: "Terminar y salir", exitForce: "Forzar salida", errNoInternet: "Sin internet.", errLocation: "Seleccione una carpeta.", errDuplicate: "El enlace existe.", errServer: "Error del servidor."
   },
   FR: {
@@ -59,7 +71,9 @@ export const DICTIONARY = {
     helpSmartTitle: "• Dossiers intelligents:", helpSmartDesc: "Trie automatiquement les téléchargements.",
     helpSubTitle: "• Préférence de sous-titres:", helpSubDesc: "Intégrera automatiquement les sous-titres favoris.",
     helpCookiesTitle: "• Authentification:", helpCookiesDesc: "Utilisez cookies.txt pour le contenu restreint par âge.",
-    supportTitle: "Contact et Soutien", supportDesc: "Ridm est gratuit et open-source. Vous pouvez faire un don ou envoyer un e-mail pour signaler des bugs.", contactMe: "Envoyer un E-mail", donateWallet: "Portefeuille USDT (TRC20)",
+    
+    supportTitle: "Contact et Soutien", supportDesc: "Ridm est entièrement gratuit et open source. Vous pouvez faire un don pour soutenir le projet et nous contacter via l'adresse e-mail ci-dessous.", quote: "La nourriture de l'homme généreux est un remède, celle de l'avare est une maladie.", donateBtn: "Faire un don", copied: "Copié !", copy: "Copier",
+    
     exitTitle: "Quitter", exitGraceful: "Terminer et quitter", exitForce: "Forcer l'arrêt", errNoInternet: "Pas d'internet.", errLocation: "Sélectionnez un dossier.", errDuplicate: "Le lien existe.", errServer: "Erreur serveur."
   },
   BN: {
@@ -68,7 +82,9 @@ export const DICTIONARY = {
     helpSmartTitle: "• স্মার্ট ফোল্ডার:", helpSmartDesc: "ধরন অনুযায়ী স্বয়ংক্রিয়ভাবে সাজায়।",
     helpSubTitle: "• সাবটাইটেল পছন্দ:", helpSubDesc: "স্বয়ংক্রিয়ভাবে সাবটাইটেল খুঁজে যুক্ত করবে।",
     helpCookiesTitle: "• প্রমাণীকরণ:", helpCookiesDesc: "cookies.txt ব্যবহার করুন।",
-    supportTitle: "যোগাযোগ এবং সমর্থন", supportDesc: "Ridm বিনামূল্যে এবং ওপেন সোর্স। প্রকল্প সমর্থন করতে অনুদান দিন বা বাগ রিপোর্টের জন্য ইমেইল করুন।", contactMe: "ইমেইল পাঠান", donateWallet: "USDT (TRC20) ওয়ালেট",
+    
+    supportTitle: "যোগাযোগ এবং সমর্থন", supportDesc: "Ridm সম্পূর্ণ বিনামূল্যে এবং ওপেন সোর্স। আপনি প্রকল্পটিকে সমর্থন করার জন্য অনুদান দিতে পারেন এবং নিচের ইমেলের মাধ্যমে যোগাযোগ করতে পারেন।", quote: "উদার ব্যক্তির খাবার হলো ওষুধ, আর কৃপণের খাবার হলো রোগ।", donateBtn: "দান করুন", copied: "কপি করা হয়েছে!", copy: "কপি করুন",
+    
     exitTitle: "প্রস্থান", exitGraceful: "শেষ করে প্রস্থান", exitForce: "জোরপূর্বক প্রস্থান", errNoInternet: "ইন্টারনেট নেই।", errLocation: "ফোল্ডার নির্বাচন করুন।", errDuplicate: "লিঙ্কটি বিদ্যমান।", errServer: "সার্ভার ত্রুটি।"
   },
   RU: {
@@ -77,7 +93,9 @@ export const DICTIONARY = {
     helpSmartTitle: "• Умные папки:", helpSmartDesc: "Автоматически сортирует загрузки.",
     helpSubTitle: "• Приоритет субтитров:", helpSubDesc: "Система автоматически найдет и встроит субтитры.",
     helpCookiesTitle: "• Авторизация:", helpCookiesDesc: "Используйте cookies.txt для контента с возрастными ограничениями.",
-    supportTitle: "Связь и поддержка", supportDesc: "Ridm бесплатен и имеет открытый код. Вы можете сделать пожертвование или написать на почту об ошибках.", contactMe: "Отправить E-mail", donateWallet: "USDT (TRC20) Кошелек",
+    
+    supportTitle: "Связь и поддержка", supportDesc: "Ridm полностью бесплатен и имеет открытый исходный код. Вы можете сделать пожертвование на развитие проекта и связаться с нами по почте.", quote: "Пища щедрого — лекарство, пища скупого — болезнь.", donateBtn: "Пожертвовать", copied: "Скопировано!", copy: "Копировать",
+    
     exitTitle: "Выход", exitGraceful: "Завершить и выйти", exitForce: "Принудительный выход", errNoInternet: "Нет интернета.", errLocation: "Выберите папку.", errDuplicate: "Ссылка существует.", errServer: "Ошибка сервера."
   }
 };

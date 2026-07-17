@@ -2,17 +2,17 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { 
   StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, 
   SafeAreaView, StatusBar, Modal, Platform, Image, Switch, BackHandler, NativeEventEmitter, NativeModules, Alert,
-  useWindowDimensions
+  useWindowDimensions, Linking
 } from 'react-native';
 import { 
   Link2, Trash2, Settings, HelpCircle, Power, Play, Pause, 
   File, CheckCircle2, ListFilter, ExternalLink, Share2, FolderOutput,
-  ChevronDown, X, Folder, Cookie, Moon, Sun, Globe, Coffee, Mail
+  ChevronDown, X, Folder, Cookie, Moon, Sun, Globe, Coffee, Mail, Wallet, Copy
 } from 'lucide-react-native';
 
-import * as Linking from 'expo-linking';
 import * as DocumentPicker from 'expo-document-picker'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Clipboard from 'expo-clipboard'; // PANO KOPYALAMA İÇİN EKLENDİ
 
 import { fetchFileMetadata } from './src/core/Downloader';
 import { startFileDownload, pauseDownload, resumeDownload } from './src/core/DownloadManager';
@@ -62,6 +62,9 @@ export default function App() {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const [isGracefulExit, setIsGracefulExit] = useState(false);
+  
+  // YENİ: BAĞIŞ/KRİPTO MODALI İÇİN STATE
+  const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
   
   const [selectModal, setSelectModal] = useState<{ visible: boolean; itemId: string; field: 'format' | 'subtitle' | 'tab' | 'subLang1' | 'subLang2' | 'subLang3' | 'appLang'; title: string; options: { id: string, label: string }[]; }>({ visible: false, itemId: '', field: 'format', title: '', options: [] });
   const [items, setItems] = useState<Item[]>([]);
@@ -532,6 +535,16 @@ export default function App() {
 
   const currentItems = getActiveTabItems();
 
+  const handleCopyToClipboard = async (text: string) => {
+    try {
+      await Clipboard.setStringAsync(text);
+      Alert.alert(t('copied'), text);
+    } catch (e) {
+      // Fallback
+      Alert.alert(t('error'), "Kopyalanamadı.");
+    }
+  };
+
   const renderHeader = () => (
     <View style={styles.header}>
       <Image source={require('./assets/ridm_logo.png')} style={{ width: 110, height: 35, resizeMode: 'contain' }} />
@@ -832,25 +845,29 @@ export default function App() {
             
             <View style={[styles.settingsSwitchRow, { marginTop: 16 }]}><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}>{appSettings.isDarkTheme ? <Moon size={16} color={theme.primary} /> : <Sun size={16} color="#f59e0b" />}<Text style={styles.settingsSwitchTitle}>{appSettings.isDarkTheme ? t('darkTheme') : t('lightTheme')}</Text></View><Switch value={appSettings.isDarkTheme} onValueChange={(val) => setAppSettings({ isDarkTheme: val })} trackColor={{ false: theme.borderLight, true: theme.primary }} thumbColor="#fff" /></View>
             
+            {/* DÜZENLENEN İLETİŞİM & DESTEK KARTI */}
             <View style={styles.supportCard}>
-               <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 8 }}>
-                   <Coffee size={20} color={theme.primary} />
+               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                   <Mail size={24} color={theme.primary} />
                    <Text style={[styles.supportTitle, { marginTop: 0 }]}>{t('supportTitle')}</Text>
+                   <Coffee size={24} color={theme.primary} />
                </View>
                <View style={styles.supportInfo}>
                    <Text style={styles.supportDesc}>{t('supportDesc')}</Text>
+                   <TouchableOpacity onPress={() => Linking.openURL('mailto:mremiyum@proton.me')}>
+                       <Text style={{color: theme.primary, fontSize: 13, fontWeight: 'bold', marginVertical: 6, textDecorationLine: 'underline'}}>mremiyum@proton.me</Text>
+                   </TouchableOpacity>
                    
-                   <Text style={styles.walletLabel}>{t('donateWallet')}:</Text>
-                   <TextInput 
-                      style={styles.walletInput} 
-                      value="Txxxxxxxxxxxxxxxxxxxxxxxxxx" 
-                      editable={false} 
-                      selectTextOnFocus={true} 
-                   />
+                   <Text style={{fontSize: 12, fontStyle: 'italic', color: theme.textSub, textAlign: 'center', marginVertical: 10, paddingHorizontal: 10}}>
+                       "{t('quote')}"
+                   </Text>
                    
-                   <TouchableOpacity style={styles.supportEmailBtn} onPress={() => Linking.openURL('mailto:mremiyum@proton.me')}>
-                       <Mail size={12} color={appSettings.isDarkTheme ? "#000" : "#fff"} />
-                       <Text style={[styles.supportEmailText, { color: appSettings.isDarkTheme ? "#000" : "#fff" }]}>{t('contactMe')} (mremiyum@proton.me)</Text>
+                   <TouchableOpacity style={styles.donateBtn} onPress={() => setIsDonateModalOpen(true)}>
+                       <View style={{flexDirection: 'row', alignItems: 'center', gap: 6}}>
+                           <Wallet size={16} color="#fff" />
+                           <Text style={styles.donateBtnText}>{t('donateBtn')}</Text>
+                       </View>
+                       <Text style={styles.donateSubText}>(BTC, LTC, USDT-TRC20)</Text>
                    </TouchableOpacity>
                </View>
             </View>
@@ -882,6 +899,57 @@ export default function App() {
       </View>
 
       {renderSettingsPanel()}
+
+      {/* YENİ: KRİPTO BAĞIŞ MODALI */}
+      <Modal visible={isDonateModalOpen} transparent animationType="slide" onRequestClose={() => setIsDonateModalOpen(false)}>
+        <View style={styles.modalOverlayBottom}>
+          <View style={[styles.bottomSheet, { maxHeight: '90%' }]}>
+            <Text style={styles.bottomSheetTitle}>{t('donateBtn')}</Text>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }}>
+              
+              {/* Bitcoin */}
+              <View style={styles.cryptoCard}>
+                <Image source={require('./assets/qr_btc.png')} style={styles.qrImage} defaultSource={require('./assets/ridm_logo.png')} />
+                <Text style={styles.cryptoName}>Bitcoin (BTC)</Text>
+                <View style={styles.cryptoAddressRow}>
+                  <TextInput style={styles.cryptoInput} value="bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu" editable={false} selectTextOnFocus={true} />
+                  <TouchableOpacity style={styles.copyBtn} onPress={() => handleCopyToClipboard("bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu")}>
+                    <Copy size={16} color="#fff" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              {/* Litecoin */}
+              <View style={styles.cryptoCard}>
+                <Image source={require('./assets/qr_ltc.png')} style={styles.qrImage} defaultSource={require('./assets/ridm_logo.png')} />
+                <Text style={styles.cryptoName}>Litecoin (LTC)</Text>
+                <View style={styles.cryptoAddressRow}>
+                  <TextInput style={styles.cryptoInput} value="Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY" editable={false} selectTextOnFocus={true} />
+                  <TouchableOpacity style={styles.copyBtn} onPress={() => handleCopyToClipboard("Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY")}>
+                    <Copy size={16} color="#fff" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              {/* USDT Tron */}
+              <View style={styles.cryptoCard}>
+                <Image source={require('./assets/qr_usdt.png')} style={styles.qrImage} defaultSource={require('./assets/ridm_logo.png')} />
+                <Text style={styles.cryptoName}>Tron (USDT-TRC20)</Text>
+                <View style={styles.cryptoAddressRow}>
+                  <TextInput style={styles.cryptoInput} value="TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp" editable={false} selectTextOnFocus={true} />
+                  <TouchableOpacity style={styles.copyBtn} onPress={() => handleCopyToClipboard("TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp")}>
+                    <Copy size={16} color="#fff" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+            </ScrollView>
+            <TouchableOpacity onPress={() => setIsDonateModalOpen(false)} style={styles.closeSheetBtn}>
+              <Text style={styles.exitCancelText}>{t('close')}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
 
       <Modal visible={selectModal.visible} transparent animationType="fade">
         <View style={styles.modalOverlayBottom}>
@@ -957,6 +1025,7 @@ export default function App() {
           </View>
         </View>
       </Modal>
+
     </SafeAreaView>
   );
 }
@@ -1088,11 +1157,17 @@ const getStyles = (theme: any) => StyleSheet.create({
   subLangInputText: { color: theme.textMain, fontSize: 12, fontWeight: 'bold' },
   
   supportCard: { backgroundColor: theme.bgInput, borderWidth: 1, borderColor: theme.borderLight, padding: 12, borderRadius: 12, marginTop: 20 },
-  supportInfo: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 8 },
-  supportTitle: { fontSize: 14, fontWeight: 'bold', color: theme.textMain, marginTop: 8 },
+  supportInfo: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 4 },
+  supportTitle: { fontSize: 14, fontWeight: 'bold', color: theme.textMain },
   supportDesc: { fontSize: 11, color: theme.textSub, lineHeight: 16, textAlign: 'center', marginBottom: 4 },
-  walletLabel: { fontSize: 10, fontWeight: 'bold', color: theme.primary, alignSelf: 'flex-start', marginLeft: 4, marginTop: 4 },
-  walletInput: { width: '100%', backgroundColor: theme.bgCard, borderWidth: 1, borderColor: theme.borderMain, borderRadius: 6, padding: 8, color: theme.textSub, fontSize: 11, textAlign: 'center' },
-  supportEmailBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: theme.borderMain, paddingVertical: 8, paddingHorizontal: 12, borderRadius: 8, marginTop: 8, gap: 6 },
-  supportEmailText: { color: theme.textMain, fontSize: 11, fontWeight: 'bold' }
+  donateBtn: { flexDirection: 'column', alignItems: 'center', backgroundColor: theme.primary, paddingVertical: 8, paddingHorizontal: 20, borderRadius: 8, marginTop: 10 },
+  donateBtnText: { color: '#fff', fontSize: 13, fontWeight: 'bold' },
+  donateSubText: { color: 'rgba(255,255,255,0.7)', fontSize: 9, marginTop: 2 },
+  
+  cryptoCard: { backgroundColor: theme.bgInput, borderWidth: 1, borderColor: theme.borderLight, borderRadius: 12, padding: 16, marginBottom: 16, alignItems: 'center' },
+  qrImage: { width: 140, height: 140, borderRadius: 8, marginBottom: 12, backgroundColor: '#fff' },
+  cryptoName: { fontSize: 14, fontWeight: 'bold', color: theme.primary, marginBottom: 8 },
+  cryptoAddressRow: { flexDirection: 'row', alignItems: 'center', width: '100%', gap: 8 },
+  cryptoInput: { flex: 1, backgroundColor: theme.bgCard, borderWidth: 1, borderColor: theme.borderMain, borderRadius: 8, padding: 10, color: theme.textMain, fontSize: 11, textAlign: 'center' },
+  copyBtn: { backgroundColor: theme.primary, padding: 10, borderRadius: 8, alignItems: 'center', justifyContent: 'center' }
 });

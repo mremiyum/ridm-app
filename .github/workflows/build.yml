@@ -27,7 +27,9 @@ jobs:
           java-version: '17'
 
       - name: 📥 Bağımlılıkları Yükle (NPM)
-        run: npm ci
+        run: |
+          npm install
+          npx expo install expo-clipboard
 
       - name: 🚀 APK'yı Derle (Gradle)
         run: |
