@@ -321,13 +321,16 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                     }
                 }
                 
+                // --- ALTYAZI İŞLEMLERİ BLOĞU ---
                 if (subId != "none") {
                     request.addOption("--write-subs")
                     request.addOption("--write-auto-subs")
                     if (subId != "all") request.addOption("--sub-langs", subId)
                     request.addOption("--embed-subs")
                     request.addOption("--compat-options", "no-keep-subs")
-                    request.addOption("--sub-format", "srt/best") 
+                    request.addOption("--sub-format", "srt/best")
+                    // DÜZELTME: Otomatik altyazıların (VTT) videoya başarıyla gömülmesi için zorla SRT dönüştürme komutu eklendi.
+                    request.addOption("--convert-subs", "srt")
                 }
 
                 if (playlistItems != "all" && playlistItems.isNotBlank()) {

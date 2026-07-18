@@ -12,7 +12,7 @@ import {
 
 import * as DocumentPicker from 'expo-document-picker'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Clipboard from 'expo-clipboard'; // PANO KOPYALAMA İÇİN EKLENDİ
+import * as Clipboard from 'expo-clipboard'; 
 
 import { fetchFileMetadata } from './src/core/Downloader';
 import { startFileDownload, pauseDownload, resumeDownload } from './src/core/DownloadManager';
@@ -23,6 +23,7 @@ import { DICTIONARY } from './src/locales/dictionary';
 const { YtDlpBridge } = NativeModules;
 const MAX_LINKS = 10;
 const STORAGE_KEY = "@ridm_items_v1";
+const SETTINGS_KEY = "@ridm_settings_v1";
 
 type Stage = 'analyzing' | 'analyzed' | 'queued' | 'downloading' | 'paused' | 'finished' | 'error';
 type Type = 'single_file' | 'single_media' | 'channel' | 'playlist' | 'unknown' | 'skipped';
@@ -63,7 +64,6 @@ export default function App() {
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const [isGracefulExit, setIsGracefulExit] = useState(false);
   
-  // YENİ: BAĞIŞ/KRİPTO MODALI İÇİN STATE
   const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
   
   const [selectModal, setSelectModal] = useState<{ visible: boolean; itemId: string; field: 'format' | 'subtitle' | 'tab' | 'subLang1' | 'subLang2' | 'subLang3' | 'appLang'; title: string; options: { id: string, label: string }[]; }>({ visible: false, itemId: '', field: 'format', title: '', options: [] });
@@ -103,7 +103,12 @@ export default function App() {
           if (YtDlpBridge && YtDlpBridge.init) await YtDlpBridge.init(hasIncomplete); 
 
           let savedSettings = {};
-          if (YtDlpBridge && YtDlpBridge.loadSettings) {
+          
+          // Çift Dikiş Ayar Yükleme (AsyncStorage Öncelikli)
+          const localSettingsStr = await AsyncStorage.getItem(SETTINGS_KEY);
+          if (localSettingsStr) {
+              savedSettings = JSON.parse(localSettingsStr);
+          } else if (YtDlpBridge && YtDlpBridge.loadSettings) {
              const res = await YtDlpBridge.loadSettings();
              if (res && res !== '{}') savedSettings = JSON.parse(res);
           }
@@ -117,6 +122,7 @@ export default function App() {
 
           if (Object.keys(savedSettings).length === 0) {
               if (YtDlpBridge && YtDlpBridge.saveSettings) YtDlpBridge.saveSettings(JSON.stringify(merged), merged.downloadPath || '');
+              AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(merged)).catch(()=>{});
           }
 
           setAppSettingsState(merged);
@@ -141,6 +147,7 @@ export default function App() {
     setAppSettingsState(prev => {
       const next = typeof updater === 'function' ? updater(prev) : { ...prev, ...updater };
       if (YtDlpBridge && YtDlpBridge.saveSettings) YtDlpBridge.saveSettings(JSON.stringify(next), next.downloadPath || '');
+      AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(next)).catch(()=>{});
       return next;
     });
   };
@@ -466,14 +473,21 @@ export default function App() {
         }
     } else if (targetItem.stage === 'paused') {
         setItems(prev => prev.map(item => item.id === id ? { ...item, stage: 'downloading', speed: '...' } : item));
-        if (targetItem.type === 'single_file' && targetItem.resumeData) {
-            (resumeDownload as any)(
-                id, targetItem.resumeData,
-                (progress: number, downloadedStr: string, speedStr: string) => { setItems(prev => prev.map(item => item.id === id ? { ...item, progress, downloaded: downloadedStr, speed: speedStr } : item)); },
-                (finalPath: string) => { setItems(prev => prev.map(item => item.id === id ? { ...item, stage: 'finished', progress: 100, speed: t('completed'), fileUri: finalPath } : item)); }
-            );
-        } else {
-            startDownloadProcess(targetItem);
+        try {
+            if (targetItem.type === 'single_file' && targetItem.resumeData) {
+                if (YtDlpBridge && YtDlpBridge.init) await YtDlpBridge.init(true);
+                (resumeDownload as any)(
+                    id, targetItem.resumeData,
+                    (progress: number, downloadedStr: string, speedStr: string) => { setItems(prev => prev.map(item => item.id === id ? { ...item, progress, downloaded: downloadedStr, speed: speedStr } : item)); },
+                    (finalPath: string) => { setItems(prev => prev.map(item => item.id === id ? { ...item, stage: 'finished', progress: 100, speed: t('completed'), fileUri: finalPath } : item)); }
+                );
+            } else {
+                if (YtDlpBridge && YtDlpBridge.init) await YtDlpBridge.init(true);
+                startDownloadProcess(targetItem);
+            }
+        } catch (e: any) {
+             Alert.alert(t('error'), "İndirme motoru hazırlanamadı. Lütfen indirmeyi iptal edip tekrar deneyin.");
+             setItems(prev => prev.map(item => item.id === id ? { ...item, stage: 'error', errorMsg: String(e.message || e) } : item));
         }
     }
   };
@@ -540,7 +554,6 @@ export default function App() {
       await Clipboard.setStringAsync(text);
       Alert.alert(t('copied'), text);
     } catch (e) {
-      // Fallback
       Alert.alert(t('error'), "Kopyalanamadı.");
     }
   };
@@ -847,27 +860,28 @@ export default function App() {
             
             {/* DÜZENLENEN İLETİŞİM & DESTEK KARTI */}
             <View style={styles.supportCard}>
-               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                   <Mail size={24} color={theme.primary} />
-                   <Text style={[styles.supportTitle, { marginTop: 0 }]}>{t('supportTitle')}</Text>
-                   <Coffee size={24} color={theme.primary} />
+               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4, paddingHorizontal: 4 }}>
+                   <Mail size={18} color={theme.primary} />
+                   <Text style={styles.supportTitle}>{t('supportTitle')}</Text>
+                   <Coffee size={18} color={theme.primary} />
                </View>
                <View style={styles.supportInfo}>
                    <Text style={styles.supportDesc}>{t('supportDesc')}</Text>
-                   <TouchableOpacity onPress={() => Linking.openURL('mailto:mremiyum@proton.me')}>
-                       <Text style={{color: theme.primary, fontSize: 13, fontWeight: 'bold', marginVertical: 6, textDecorationLine: 'underline'}}>mremiyum@proton.me</Text>
-                   </TouchableOpacity>
-                   
-                   <Text style={{fontSize: 12, fontStyle: 'italic', color: theme.textSub, textAlign: 'center', marginVertical: 10, paddingHorizontal: 10}}>
-                       "{t('quote')}"
-                   </Text>
                    
                    <TouchableOpacity style={styles.donateBtn} onPress={() => setIsDonateModalOpen(true)}>
-                       <View style={{flexDirection: 'row', alignItems: 'center', gap: 6}}>
-                           <Wallet size={16} color="#fff" />
+                       <View style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
+                           <Wallet size={14} color="#fff" />
                            <Text style={styles.donateBtnText}>{t('donateBtn')}</Text>
                        </View>
                        <Text style={styles.donateSubText}>(BTC, LTC, USDT-TRC20)</Text>
+                   </TouchableOpacity>
+
+                   <Text style={styles.quoteText}>
+                       "{t('quote')}"
+                   </Text>
+
+                   <TouchableOpacity onPress={() => Linking.openURL('mailto:mremiyum@proton.me')}>
+                       <Text style={styles.mailText}>mremiyum@proton.me</Text>
                    </TouchableOpacity>
                </View>
             </View>
@@ -900,7 +914,7 @@ export default function App() {
 
       {renderSettingsPanel()}
 
-      {/* YENİ: KRİPTO BAĞIŞ MODALI */}
+      {/* DÜZENLENEN KRİPTO BAĞIŞ MODALI */}
       <Modal visible={isDonateModalOpen} transparent animationType="slide" onRequestClose={() => setIsDonateModalOpen(false)}>
         <View style={styles.modalOverlayBottom}>
           <View style={[styles.bottomSheet, { maxHeight: '90%' }]}>
@@ -912,7 +926,7 @@ export default function App() {
                 <Image source={require('./assets/qr_btc.png')} style={styles.qrImage} defaultSource={require('./assets/ridm_logo.png')} />
                 <Text style={styles.cryptoName}>Bitcoin (BTC)</Text>
                 <View style={styles.cryptoAddressRow}>
-                  <TextInput style={styles.cryptoInput} value="bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu" editable={false} selectTextOnFocus={true} />
+                  <Text style={styles.cryptoInputText} selectable={true}>bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu</Text>
                   <TouchableOpacity style={styles.copyBtn} onPress={() => handleCopyToClipboard("bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu")}>
                     <Copy size={16} color="#fff" />
                   </TouchableOpacity>
@@ -924,7 +938,7 @@ export default function App() {
                 <Image source={require('./assets/qr_ltc.png')} style={styles.qrImage} defaultSource={require('./assets/ridm_logo.png')} />
                 <Text style={styles.cryptoName}>Litecoin (LTC)</Text>
                 <View style={styles.cryptoAddressRow}>
-                  <TextInput style={styles.cryptoInput} value="Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY" editable={false} selectTextOnFocus={true} />
+                  <Text style={styles.cryptoInputText} selectable={true}>Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY</Text>
                   <TouchableOpacity style={styles.copyBtn} onPress={() => handleCopyToClipboard("Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY")}>
                     <Copy size={16} color="#fff" />
                   </TouchableOpacity>
@@ -936,7 +950,7 @@ export default function App() {
                 <Image source={require('./assets/qr_usdt.png')} style={styles.qrImage} defaultSource={require('./assets/ridm_logo.png')} />
                 <Text style={styles.cryptoName}>Tron (USDT-TRC20)</Text>
                 <View style={styles.cryptoAddressRow}>
-                  <TextInput style={styles.cryptoInput} value="TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp" editable={false} selectTextOnFocus={true} />
+                  <Text style={styles.cryptoInputText} selectable={true}>TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp</Text>
                   <TouchableOpacity style={styles.copyBtn} onPress={() => handleCopyToClipboard("TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp")}>
                     <Copy size={16} color="#fff" />
                   </TouchableOpacity>
@@ -1002,7 +1016,7 @@ export default function App() {
             <View style={{ alignItems: 'center', marginBottom: 16, paddingBottom: 16, borderBottomWidth: 1, borderColor: theme.borderMain }}>
               <Text style={{ fontSize: 22, fontWeight: '900', color: theme.primary, letterSpacing: 1 }}>Ridm</Text>
               <Text style={{ fontSize: 11, color: theme.textSub, fontWeight: 'bold', letterSpacing: 0.5, marginTop: 4 }}>{t('slogan')}</Text>
-              <Text style={{ fontSize: 10, color: theme.borderLight, marginTop: 6, fontWeight: 'bold' }}>v1.0.4</Text>
+              <Text style={{ fontSize: 10, color: theme.borderLight, marginTop: 6, fontWeight: 'bold' }}>v1.0.5</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}><HelpCircle size={20} color={theme.primary} /><Text style={styles.modalTitle}>{t('helpTitle')}</Text></View>
             <ScrollView style={{ marginTop: 10, maxHeight: 300 }}>
@@ -1156,18 +1170,20 @@ const getStyles = (theme: any) => StyleSheet.create({
   subLangInputBtn: { width: '100%', height: 32, backgroundColor: theme.bgInput, borderWidth: 1, borderColor: theme.borderLight, borderRadius: 6, alignItems: 'center', justifyContent: 'center' },
   subLangInputText: { color: theme.textMain, fontSize: 12, fontWeight: 'bold' },
   
-  supportCard: { backgroundColor: theme.bgInput, borderWidth: 1, borderColor: theme.borderLight, padding: 12, borderRadius: 12, marginTop: 20 },
-  supportInfo: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 4 },
-  supportTitle: { fontSize: 14, fontWeight: 'bold', color: theme.textMain },
-  supportDesc: { fontSize: 11, color: theme.textSub, lineHeight: 16, textAlign: 'center', marginBottom: 4 },
-  donateBtn: { flexDirection: 'column', alignItems: 'center', backgroundColor: theme.primary, paddingVertical: 8, paddingHorizontal: 20, borderRadius: 8, marginTop: 10 },
-  donateBtnText: { color: '#fff', fontSize: 13, fontWeight: 'bold' },
-  donateSubText: { color: 'rgba(255,255,255,0.7)', fontSize: 9, marginTop: 2 },
+  supportCard: { backgroundColor: theme.bgInput, borderWidth: 1, borderColor: theme.borderLight, padding: 10, borderRadius: 12, marginTop: 16 },
+  supportInfo: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 2 },
+  supportTitle: { fontSize: 13, fontWeight: 'bold', color: theme.textMain },
+  supportDesc: { fontSize: 10, color: theme.textSub, lineHeight: 14, textAlign: 'center', marginBottom: 2 },
+  donateBtn: { flexDirection: 'column', alignItems: 'center', backgroundColor: theme.primary, paddingVertical: 6, paddingHorizontal: 16, borderRadius: 8, marginTop: 4, marginBottom: 2 },
+  donateBtnText: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
+  donateSubText: { color: 'rgba(255,255,255,0.7)', fontSize: 8, marginTop: 1 },
+  quoteText: { fontSize: 11, fontStyle: 'italic', color: theme.textSub, textAlign: 'center', marginVertical: 4, paddingHorizontal: 10 },
+  mailText: { color: theme.primary, fontSize: 12, fontWeight: 'bold', marginVertical: 4, textDecorationLine: 'underline' },
   
   cryptoCard: { backgroundColor: theme.bgInput, borderWidth: 1, borderColor: theme.borderLight, borderRadius: 12, padding: 16, marginBottom: 16, alignItems: 'center' },
   qrImage: { width: 140, height: 140, borderRadius: 8, marginBottom: 12, backgroundColor: '#fff' },
   cryptoName: { fontSize: 14, fontWeight: 'bold', color: theme.primary, marginBottom: 8 },
   cryptoAddressRow: { flexDirection: 'row', alignItems: 'center', width: '100%', gap: 8 },
-  cryptoInput: { flex: 1, backgroundColor: theme.bgCard, borderWidth: 1, borderColor: theme.borderMain, borderRadius: 8, padding: 10, color: theme.textMain, fontSize: 11, textAlign: 'center' },
+  cryptoInputText: { flex: 1, backgroundColor: theme.bgCard, borderWidth: 1, borderColor: theme.borderMain, borderRadius: 8, padding: 10, color: theme.textMain, fontSize: 11, textAlign: 'center' },
   copyBtn: { backgroundColor: theme.primary, padding: 10, borderRadius: 8, alignItems: 'center', justifyContent: 'center' }
 });
