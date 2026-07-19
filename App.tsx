@@ -85,10 +85,10 @@ export default function App() {
     const initializeApp = async () => {
        try {
           const storedItems = await AsyncStorage.getItem(STORAGE_KEY);
-          let hasIncomplete = false;
+          // let hasIncomplete = false; (Artık parametreye ihtiyacımız olmadığı için yoruma alındı)
           if (storedItems) {
               let parsedItems: Item[] = JSON.parse(storedItems);
-              hasIncomplete = parsedItems.some(i => i.stage === 'downloading' || i.stage === 'paused');
+              // hasIncomplete = parsedItems.some(i => i.stage === 'downloading' || i.stage === 'paused');
               
               parsedItems = parsedItems.map(item => {
                   if (item.stage === 'downloading') return { ...item, stage: 'paused' };
@@ -100,7 +100,8 @@ export default function App() {
           }
           setIsInitialLoadDone(true);
 
-          if (YtDlpBridge && YtDlpBridge.init) await YtDlpBridge.init(hasIncomplete); 
+          // 1. DÜZELTME: MOTORU ARGÜMANSIZ UYANDIRIYORUZ (Expected 0 arguments hatası engellendi)
+          if (YtDlpBridge && YtDlpBridge.init) await YtDlpBridge.init(); 
 
           let savedSettings = {};
           
@@ -143,11 +144,15 @@ export default function App() {
       }
   }, [items, isInitialLoadDone]);
 
+  // 2. DÜZELTME: AYARLARIN UNUTULMASI ENGELLENDİ.
   const setAppSettings = (updater: Partial<AppSettings> | ((prev: AppSettings) => AppSettings)) => {
     setAppSettingsState(prev => {
       const next = typeof updater === 'function' ? updater(prev) : { ...prev, ...updater };
-      if (YtDlpBridge && YtDlpBridge.saveSettings) YtDlpBridge.saveSettings(JSON.stringify(next), next.downloadPath || '');
-      AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(next)).catch(()=>{});
+      // Yükleme tamamsa kaydet, değilse bekle.
+      if (isInitialLoadDone) {
+          if (YtDlpBridge && YtDlpBridge.saveSettings) YtDlpBridge.saveSettings(JSON.stringify(next), next.downloadPath || '');
+          AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(next)).catch(()=>{});
+      }
       return next;
     });
   };
@@ -475,14 +480,16 @@ export default function App() {
         setItems(prev => prev.map(item => item.id === id ? { ...item, stage: 'downloading', speed: '...' } : item));
         try {
             if (targetItem.type === 'single_file' && targetItem.resumeData) {
-                if (YtDlpBridge && YtDlpBridge.init) await YtDlpBridge.init(true);
+                // 3. DÜZELTME: init İÇİNDEKİ (true) PARAMETRESİ SİLİNDİ
+                if (YtDlpBridge && YtDlpBridge.init) await YtDlpBridge.init();
                 (resumeDownload as any)(
                     id, targetItem.resumeData,
                     (progress: number, downloadedStr: string, speedStr: string) => { setItems(prev => prev.map(item => item.id === id ? { ...item, progress, downloaded: downloadedStr, speed: speedStr } : item)); },
                     (finalPath: string) => { setItems(prev => prev.map(item => item.id === id ? { ...item, stage: 'finished', progress: 100, speed: t('completed'), fileUri: finalPath } : item)); }
                 );
             } else {
-                if (YtDlpBridge && YtDlpBridge.init) await YtDlpBridge.init(true);
+                // 3. DÜZELTME: init İÇİNDEKİ (true) PARAMETRESİ SİLİNDİ
+                if (YtDlpBridge && YtDlpBridge.init) await YtDlpBridge.init();
                 startDownloadProcess(targetItem);
             }
         } catch (e: any) {
@@ -603,6 +610,7 @@ export default function App() {
       { id: 'FINISHED', label: t('finishedTab'), count: items.filter(i => i.stage === 'finished' && i.type !== 'channel' && i.type !== 'playlist').length },
       { id: 'LOGS', label: t('logsTab'), count: items.filter(i => i.stage === 'error' || i.type === 'skipped').length }
     ];
+
     return (
       <View style={{ marginBottom: 10 }}>
         <View style={styles.tabBarWrapper}>
