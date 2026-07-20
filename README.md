@@ -4,7 +4,7 @@
 Ridm, temel bir indirme yöneticisinin yanı sıra Youtube, Instagram gibi medya içeriklerini tek tek ya da toplu olarak indirme yeteneklerine sahip, açık kaynaklı ve 9 dil destekli güçlü bir medya yöneticisidir. Arka planda `yt-dlp` motorunun gücünü kullanır.
 
 ## 📱 Ekran Görüntüleri
-*(Buraya ekran görüntülerini ekleyeceğiz, alttaki kodlar hazır)*
+
 <p align="center">
   <img src="assets/sc_home.png" width="220" />
   <img src="assets/sc_download.png" width="220" />
