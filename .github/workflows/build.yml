@@ -45,6 +45,20 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          name: Ridm ${{ github.ref_name }} 
+          body: |
+            # 🚀 Ridm Açık Kaynak Sürümü (${{ github.ref_name }})
+
+            Bu sürüm, **doğrudan GitHub Actions tarafından** orijinal kaynak kodlar kullanılarak bulutta güvenli bir şekilde derlenmiş ve paketlenmiştir.
+
+            ### 📦 Bu Sürümdeki Yenilikler:
+            * 🎨 **Arayüz (UI) İyileştirmeleri:** Destek ve İletişim kartı yenilendi. %40 daha kompakt bir görünüme kavuştu.
+            * 🧠 **Hafıza Düzeltmesi:** Uygulama yeniden başlatıldığında klasör tercihlerinin unutulması sorunu (Race Condition) tamamen çözüldü.
+            * ⚙️ **Motor Stabilitesi:** Yarım kalan indirmeleri devam ettirirken alınan "0 arguments" hatası ve mükerrer loglamalar giderildi.
+            * 📝 **Otomatik Çeviri Altyazıları:** Youtube'un "Otomatik Çeviri" formatları artık inen videonun içine sorunsuz şekilde SRT olarak gömülebiliyor.
+
+            ---
+            *Bu dosyayı Android cihazınıza indirip kurulum yapabilirsiniz.*
           files: android/app/build/outputs/apk/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

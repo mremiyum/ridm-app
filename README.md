@@ -3,6 +3,14 @@
 
 Ridm, temel bir indirme yöneticisinin yanı sıra Youtube, Instagram gibi medya içeriklerini tek tek ya da toplu olarak indirme yeteneklerine sahip, açık kaynaklı ve 9 dil destekli güçlü bir medya yöneticisidir. Arka planda `yt-dlp` motorunun gücünü kullanır.
 
+## 📱 Ekran Görüntüleri
+*(Buraya ekran görüntülerini ekleyeceğiz, alttaki kodlar hazır)*
+<p align="center">
+  <img src="assets/sc_home.png" width="220" />
+  <img src="assets/sc_download.png" width="220" />
+  <img src="assets/sc_settings.png" width="220" />
+</p>
+
 ## 🌟 Özellikler
 
 * **🌍 Çoklu Dil Desteği:** Türkçe, İngilizce, Arapça, Çince, Hintçe, İspanyolca, Fransızca, Bengalce ve Rusça dillerinde tam destek.
@@ -19,17 +27,18 @@ Ridm, temel bir indirme yöneticisinin yanı sıra Youtube, Instagram gibi medya
 
 ## 🍪 Cookies / Kimlik Doğrulama
 Instagram veya yaş kısıtlamalı YouTube içeriklerini indirebilmek için hesabınızı uygulamaya tanıtmanız gerekir:
-1. Bilgisayarınızdaki tarayıcıya (Chrome vb.) `"Get cookies.txt LOCALLY"` eklentisini kurun.
+1. Telefonunuzdaki tarayıcıdan (Firefox, Kiwi vb.) Firefox Browser ADD-ONS içerisinde `"cookies.txt"` eklentisini kurun.
 2. Tarayıcıdan YouTube veya Instagram'a girip oturum açın.
-3. Eklenti simgesine tıklayıp 'Export' butonu ile çerezleri `.txt` dosyası olarak bilgisayarınıza indirin.
-4. Bu dosyayı telefonunuza gönderin.
-5. Uygulama Ayarlarından "Cookies Seçiniz" butonuna tıklayıp bu dosyayı uygulamaya bağlayın.
+3. Eklenti simgesine tıklayıp Download seçeneği ile cookies.txt dosyasını indirin (../Download/Kiwi/cookies.txt vb.)
+4. Uygulama Ayarlarından "Cookies Seçiniz" butonuna tıklayıp bu dosyayı uygulamaya bağlayın.
 
 ## ☕ Destek & İletişim
-Ridm tamamen ücretsiz ve açık kaynaklıdır. Projeye destek olmak, kahve ısmarlamak veya hata bildirimleri için bana ulaşabilirsiniz.
+Ridm tamamen ücretsiz ve açık kaynaklıdır. Projeye destek olmak, geliştirme sürecine katkıda bulunmak veya hata bildirimleri için bana ulaşabilirsiniz.
 
-* **E-Posta:** mremiyum@proton.me
-* **Bağış (USDT - TRC20):** `Txxxxxxxxxxxxxxxxxxxxxxxxxx` *(Kendi cüzdan kodunu buraya ekle)*
+**Kripto Bağış Adresleri:**
+* **Bitcoin (BTC):** `bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu`
+* **Litecoin (LTC):** `Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY`
+* **Tron (USDT-TRC20):** `TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp`
 
 ---
-*Developed with by mremiyum*
+*Developed by mremiyum*     mremiyum@proton.me
