@@ -5,6 +5,7 @@ Ridm is a powerful, open-source media manager supporting 9 languages. In additio
 
 ## 📱 Screenshots
 
+
 <p align="center">
   <img src="assets/sc_home.png" width="220" /> 
   <img src="assets/sc_download.png" width="220" /> 
@@ -43,4 +44,5 @@ Ridm is completely free and open-source. You can contact me via the email addres
 | `bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu` | `Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY` | `TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp` |
 
 ---
-*Developed by mremiyum* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mremiyum@proton.me
+
+*Developed by mremiyum* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mremiyum@proton.me
