@@ -285,7 +285,11 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                 request.addOption("--paths", compDir.absolutePath) 
                 request.addOption("-o", "%(title)s.%(ext)s")
                 request.addOption("--no-check-certificate")
-                
+                // DÜZELTME: Chrome tarayıcı algısı SADECE Instagram linklerinde devreye girer
+                if (url.contains("instagram.com", ignoreCase = true)) {
+                    request.addOption("--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                    request.addOption("--referer", "https://www.instagram.com/")
+                }
                 // DÜZELTME: Arşiv dosyası SADECE toplu indirmelerde devreye girer
                 if (isBulk) {
                     val archiveFile = File(appCtx.getExternalFilesDir(null), "ridm_archive.txt")

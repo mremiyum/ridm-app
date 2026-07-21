@@ -1,44 +1,46 @@
 # Ridm 
 > **Raid - inspect - download - manage**
 
-Ridm, temel bir indirme yöneticisinin yanı sıra Youtube, Instagram gibi medya içeriklerini tek tek ya da toplu olarak indirme yeteneklerine sahip, açık kaynaklı ve 9 dil destekli güçlü bir medya yöneticisidir. Arka planda `yt-dlp` motorunun gücünü kullanır.
+Ridm is a powerful, open-source media manager supporting 9 languages. In addition to being a basic download manager, it has the capability to download media content from platforms like YouTube and Instagram individually or in bulk. It utilizes the power of the `yt-dlp` engine under the hood.
 
-## 📱 Ekran Görüntüleri
-*(Buraya ekran görüntülerini ekleyeceğiz, alttaki kodlar hazır)*
+## 📱 Screenshots
+
 <p align="center">
-  <img src="assets/sc_home.png" width="220" />
-  <img src="assets/sc_download.png" width="220" />
+  <img src="assets/sc_home.png" width="220" /> 
+  <img src="assets/sc_download.png" width="220" /> 
   <img src="assets/sc_settings.png" width="220" />
 </p>
 
-## 🌟 Özellikler
+## 🌟 Features
 
-* **🌍 Çoklu Dil Desteği:** Türkçe, İngilizce, Arapça, Çince, Hintçe, İspanyolca, Fransızca, Bengalce ve Rusça dillerinde tam destek.
-* **🚀 Temel Kullanım & Entegrasyon:** Uygulama içerisine tek seferde enter ile ayrılmış max 10 link ekleyebilirsiniz. YouTube veya diğer uygulamalarda herhangi bir videoyu "Paylaş" diyerek Ridm'i seçtiğinizde, link otomatik olarak analiz edilir ve indirmeye hazır hale gelir.
-* **📂 Akıllı Klasörleme:** Aktif edildiğinde indirmeleriniz türlerine göre (Video, Ses vb.) otomatik olarak alt klasörlere ayrılır.
-* **🎞️ Gelişmiş Format Seçimi:** Playlist ve Kanal indirme kartlarında bulunan format seçiminde "En İyi Kalite"yi seçtiğinizde kaynak sunucudaki en yüksek çözünürlük ve kalitedeki videoları indirir. 2160p (4K) veya 1080p seçildiğinde, eğer o çözünürlükte video yoksa dosyayı atlar ve sıradakine geçer.
-* **🎵 Ses ve Altyazı Desteği:** MP3, M4A ve Opus formatlarında sadece ses indirebilirsiniz. Altyazılı bir ses dosyası indirmek isterseniz **M4A** formatını seçmeniz gerekmektedir.
-* **📝 Toplu Altyazı Tercihi:** Ayarlar menüsündeki 'Altyazı Tercih Sırası', Kanal ve Playlist gibi toplu indirmelerde her video için tek tek altyazı sorma zahmetini ortadan kaldırır. "Oto Sıralı" seçildiğinde sistem sırasıyla belirlediğiniz 3 dili arar ve bulduğunu gömer.
+* **🌍 Multi-Language Support:** Full support for English, Turkish, Arabic, Chinese, Hindi, Spanish, French, Bengali, and Russian. *(The app launches in English by default for universal use; the language can be changed instantly from the settings).*
+* **🚀 Basic Usage & Integration:** You can add up to 10 links at once, separated by pressing Enter. If you tap "Share" on any video in the YouTube app (or others) and select Ridm, the link is automatically analyzed and ready for download.
+* **📂 Smart Folders:** When activated, your downloads are automatically sorted into subfolders based on their media type (Video, Audio, etc.).
+* **🎞️ Advanced Format Selection:** Selecting "Best Quality" in the format options for Playlist and Channel downloads fetches the highest resolution and quality videos available on the source server. If 2160p (4K) or 1080p is selected and that resolution is unavailable, it skips that file and moves to the next.
+* **🎵 Audio & Subtitle Support:** MP3, M4A, and Opus formats download audio-only files. If you want to download an audio file with embedded subtitles, you must select the **M4A** format.
+* **📝 Bulk Subtitle Preference:** The 'Subtitle Preference Order' in the Settings menu saves you the hassle of selecting subtitles for each video individually during bulk downloads. If you enable "Auto Sequence", the system checks for your specified 3 languages in order and automatically embeds the first one it finds.
 
-## ⚠️ Önemli Uyarılar
+## ⚠️ Important Warnings
 
-* **Pil Kısıtlamaları:** İndirme işleminin arka planda kesintisiz devam edebilmesi için uygulamanın Android güç seçeneklerinde pil kullanımının **"Kısıtlama Yok" (Unrestricted)** olarak ayarlanması gerekmektedir.
-* **İndirme Konumu:** Uygulamayı ilk açtığınızda Ayarlar menüsünden indirmelerin kaydedileceği klasörü seçmeniz zorunludur.
+* **Battery Restrictions:** In order for the download process to continue uninterrupted in the background, the app's battery usage must be set to **"Unrestricted"** in Android power options.
+* **Download Location:** Upon your first launch, it is mandatory to select a download folder from the Settings menu.
 
-## 🍪 Cookies / Kimlik Doğrulama
-Instagram veya yaş kısıtlamalı YouTube içeriklerini indirebilmek için hesabınızı uygulamaya tanıtmanız gerekir:
-1. Telefonunuzdaki tarayıcıdan (Firefox, Kiwi vb.) Firefox Browser ADD-ONS içerisinde `"cookies.txt"` eklentisini kurun.
-2. Tarayıcıdan YouTube veya Instagram'a girip oturum açın.
-3. Eklenti simgesine tıklayıp Download seçeneği ile cookies.txt dosyasını indirin (../Download/Kiwi/cookies.txt vb.)
-4. Uygulama Ayarlarından "Cookies Seçiniz" butonuna tıklayıp bu dosyayı uygulamaya bağlayın.
+## 🍪 Cookies / Authentication
+To download Instagram or age-restricted YouTube content, you must link your account to the application:
+1. Install a `"cookies.txt"` extension from the extension store (Chrome, Firefox Browser ADD-ONS, etc.) on your desktop browser or mobile device.
+2. Log in to YouTube or Instagram from your browser.
+3. Click on the extension icon and use the Download option to save the cookies.txt file to any location on your mobile device.
+4. Go to App Settings, click the "Select cookies.txt" button, and link this file to the app.
 
-## ☕ Destek & İletişim
-Ridm tamamen ücretsiz ve açık kaynaklıdır. Projeye destek olmak, geliştirme sürecine katkıda bulunmak veya hata bildirimleri için bana ulaşabilirsiniz.
+## ☕ Support & Contact
+Ridm is completely free and open-source. You can contact me via the email address below to report bugs, contribute to the development process, or donate to support the project.
 
-**Kripto Bağış Adresleri:**
-* **Bitcoin (BTC):** `bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu`
-* **Litecoin (LTC):** `Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY`
-* **Tron (USDT-TRC20):** `TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp`
+**Crypto Donation Addresses:**
+
+| Bitcoin (BTC) | Litecoin (LTC) | Tron (USDT-TRC20) |
+| :---: | :---: | :---: |
+| <img src="assets/qr_btc.png" width="130"> | <img src="assets/qr_ltc.png" width="130"> | <img src="assets/qr_usdt.png" width="130"> |
+| `bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu` | `Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY` | `TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp` |
 
 ---
-*Developed by mremiyum*     mremiyum@proton.me
+*Developed by mremiyum* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mremiyum@proton.me

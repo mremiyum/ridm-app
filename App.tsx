@@ -71,14 +71,14 @@ export default function App() {
   const [sessionLinks, setSessionLinks] = useState<Set<string>>(new Set());
   const [sortOption, setSortOption] = useState<SortOption>('date_desc');
   const [isInitialLoadDone, setIsInitialLoadDone] = useState(false);
-
+  // Varsayılan Dil
   const [appSettingsState, setAppSettingsState] = useState<AppSettings>({
     downloadPath: '', smartFolder: false, maxConcurrentDownloads: 1, subLang1: 'TR', subLang2: 'EN', subLang3: 'AR', cookiesPath: '', isDarkTheme: true, 
-    language: 'TR'
+    language: 'EN'
   });
-
+  // Varsayılan Dil
   const t = (key: keyof typeof DICTIONARY.TR) => {
-    return DICTIONARY[appSettingsState.language]?.[key] || DICTIONARY.TR[key] || key;
+    return DICTIONARY[appSettingsState.language]?.[key] || DICTIONARY.EN[key] || key;
   };
 
   useEffect(() => {
@@ -113,11 +113,11 @@ export default function App() {
              const res = await YtDlpBridge.loadSettings();
              if (res && res !== '{}') savedSettings = JSON.parse(res);
           }
-
+          // Varsayılan Dil
           const merged: AppSettings = {
               downloadPath: '', smartFolder: false, maxConcurrentDownloads: 1, 
               subLang1: 'TR', subLang2: 'EN', subLang3: 'AR', cookiesPath: '', isDarkTheme: true,
-              language: 'TR',
+              language: 'EN',
               ...savedSettings
           };
 
@@ -1024,14 +1024,14 @@ export default function App() {
             <View style={{ alignItems: 'center', marginBottom: 16, paddingBottom: 16, borderBottomWidth: 1, borderColor: theme.borderMain }}>
               <Text style={{ fontSize: 22, fontWeight: '900', color: theme.primary, letterSpacing: 1 }}>Ridm</Text>
               <Text style={{ fontSize: 11, color: theme.textSub, fontWeight: 'bold', letterSpacing: 0.5, marginTop: 4 }}>{t('slogan')}</Text>
-              <Text style={{ fontSize: 10, color: theme.borderLight, marginTop: 6, fontWeight: 'bold' }}>v1.0.7</Text>
+              <Text style={{ fontSize: 10, color: theme.borderLight, marginTop: 6, fontWeight: 'bold' }}>v1.0.8</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}><HelpCircle size={20} color={theme.primary} /><Text style={styles.modalTitle}>{t('helpTitle')}</Text></View>
             <ScrollView style={{ marginTop: 10, maxHeight: 300 }}>
               <Text style={{ fontSize: 13, lineHeight: 20 }}>
                 <Text style={{fontWeight: 'bold', color: theme.textMain}}>{t('helpBasicTitle')} </Text>
                 <Text style={{fontWeight: 'normal', color: theme.textSub}}>{t('helpBasicDesc')}{"\n"}</Text>
-                <Text style={{fontWeight: 'bold', color: theme.danger, textDecorationLine: 'underline'}}>{t('helpBasicWarn')}</Text>
+                <Text style={{fontWeight: 'bold', color: theme.danger}}>{t('helpBasicWarn')}</Text>
                 {"\n\n"}
                 <Text style={{fontWeight: 'bold', color: theme.textMain}}>{t('helpSmartTitle')} </Text>
                 <Text style={{fontWeight: 'normal', color: theme.textSub}}>{t('helpSmartDesc')}</Text>
