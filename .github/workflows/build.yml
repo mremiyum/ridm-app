@@ -47,13 +47,12 @@ jobs:
         with:
           name: Ridm ${{ github.ref_name }} 
           body: |
-            # 🚀 Ridm Open Source Release (${{ github.ref_name }})
+            # 🚀 Ridm Open Source Release - Stable Version(${{ github.ref_name }})
 
             This release was securely built and packaged in the cloud **directly by GitHub Actions** using the original source code.
 
             ### 📦 What's New in This Release:
-            * 🎨 **UI Improvements:** The help menu has been updated.
-            * ⚙️ **Core Fix:** Added Chrome browser user-agent (spoofing) for cookies.txt.
+            * ⚙️ **Core Fix:** File size optimization was performed on the audio files.
 
             ---
             *You can download and install this file directly on your Android device.*

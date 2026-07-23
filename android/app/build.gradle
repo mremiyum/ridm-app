@@ -100,8 +100,8 @@ android {
         applicationId 'com.mremiyum.ridmapp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8 // <-- Versiyon Artır
-        versionName "1.0.8" // <-- Ver. Artır
+        versionCode 9 // <-- Versiyon Artır
+        versionName "1.0.9" // <-- Ver. Artır
 
         buildConfigField "String", "REACT_NATIVE_RELEASE_LEVEL", "\"${findProperty('reactNativeReleaseLevel') ?: 'stable'}\""
     }

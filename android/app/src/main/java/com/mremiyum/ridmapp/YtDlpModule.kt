@@ -299,14 +299,31 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                 applyCookies(cookiesPath, request, appCtx)
 
                 if (isAudioOnly) {
-                    request.addOption("-f", "bestaudio/best")
                     request.addOption("-x") 
-                    if (formatId == "mp3") request.addOption("--audio-format", "mp3")
-                    else if (formatId == "m4a") request.addOption("--audio-format", "m4a")
-                    else if (formatId == "opus") request.addOption("--audio-format", "opus")
-                    request.addOption("--audio-quality", "0")
                     
-                    // DÜZELTME: M4A kapak fotoğraflarının düzgün işlenmesi için thumbnail eklendi
+                    when (formatId) {
+                        "mp3" -> {
+                            request.addOption("-f", "bestaudio/best")
+                            request.addOption("--audio-format", "mp3")
+                            // MP3 için YouTube'da orijinal stream olmadığından dönüştürme yapılır, 
+                            // ancak audio-quality 0 silindiği için dosya boyutu gereksiz şişmez, orijinal kbps korunur.
+                        }
+                        "m4a" -> {
+                            // YouTube'daki orijinal M4A akışını çeker. FFmpeg sesi dönüştürmez, sadece kopyalar.
+                            request.addOption("-f", "bestaudio[ext=m4a]/bestaudio")
+                            request.addOption("--audio-format", "m4a")
+                        }
+                        "opus" -> {
+                            // YouTube'daki orijinal Opus akışını çeker.
+                            request.addOption("-f", "bestaudio[ext=webm]/bestaudio")
+                            request.addOption("--audio-format", "opus")
+                        }
+                        else -> {
+                            request.addOption("-f", "bestaudio/best")
+                        }
+                    }
+                    
+                    // M4A için Kapak fotoğrafı (Thumbnail), Metadata ve Altyazıların bozulmadan gömülmesi için:
                     request.addOption("--embed-metadata")
                     request.addOption("--embed-thumbnail")
                 } else {
