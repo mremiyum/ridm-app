@@ -1024,7 +1024,7 @@ export default function App() {
             <View style={{ alignItems: 'center', marginBottom: 16, paddingBottom: 16, borderBottomWidth: 1, borderColor: theme.borderMain }}>
               <Text style={{ fontSize: 22, fontWeight: '900', color: theme.primary, letterSpacing: 1 }}>Ridm</Text>
               <Text style={{ fontSize: 11, color: theme.textSub, fontWeight: 'bold', letterSpacing: 0.5, marginTop: 4 }}>{t('slogan')}</Text>
-              <Text style={{ fontSize: 10, color: theme.borderLight, marginTop: 6, fontWeight: 'bold' }}>v1.0.9</Text>
+              <Text style={{ fontSize: 10, color: theme.borderLight, marginTop: 6, fontWeight: 'bold' }}>v1.1.0</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}><HelpCircle size={20} color={theme.primary} /><Text style={styles.modalTitle}>{t('helpTitle')}</Text></View>
             <ScrollView style={{ marginTop: 10, maxHeight: 300 }}>

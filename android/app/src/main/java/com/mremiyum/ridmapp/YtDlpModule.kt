@@ -347,11 +347,19 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                     request.addOption("--write-subs")
                     request.addOption("--write-auto-subs")
                     if (subId != "all") request.addOption("--sub-langs", subId)
-                    request.addOption("--embed-subs")
-                    request.addOption("--compat-options", "no-keep-subs")
-                    request.addOption("--sub-format", "srt/best")
-                    // DÜZELTME: Otomatik altyazıların (VTT) videoya başarıyla gömülmesi için zorla SRT dönüştürme komutu eklendi.
-                    request.addOption("--convert-subs", "srt")
+
+                    if (formatId == "mp3" || formatId == "opus") {
+                        // MP3 ve Opus için gömme (embed) yapmıyoruz. 
+                        // Sadece altyazıyı indirip LRC (şarkı sözü) formatına dönüştürüyoruz.
+                        // yt-dlp bu LRC dosyasını ses dosyasıyla aynı isimde klasöre bırakacak.
+                        request.addOption("--convert-subs", "lrc")
+                    } else {
+                        // M4A ve Videolar için altyazıyı doğrudan dosyanın içine gömüyoruz.
+                        request.addOption("--embed-subs")
+                        request.addOption("--compat-options", "no-keep-subs") // Gömüldükten sonra dışarıdaki srt'yi sil
+                        request.addOption("--sub-format", "srt/best")
+                        request.addOption("--convert-subs", "srt")
+                    }
                 }
 
                 if (playlistItems != "all" && playlistItems.isNotBlank()) {

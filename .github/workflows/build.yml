@@ -52,7 +52,7 @@ jobs:
             This release was securely built and packaged in the cloud **directly by GitHub Actions** using the original source code.
 
             ### 📦 What's New in This Release:
-            * ⚙️ **Core Fix:** File size optimization was performed on the audio files.
+            * ⚙️ **Core Fix:** added .lrc lyrics file support for opus and mp3 files
 
             ---
             *You can download and install this file directly on your Android device.*
