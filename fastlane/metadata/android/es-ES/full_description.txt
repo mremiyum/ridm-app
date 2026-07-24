@@ -1,0 +1,36 @@
+**Raid - inspect - download - manage**
+
+Ridm es un potente gestor de descargas multimedia de código abierto que admite 9 idiomas. Además de ser un gestor básico, permite descargar contenido de plataformas como YouTube e Instagram, individualmente o por lotes, utilizando el motor yt-dlp.
+
+### 🌟 Características
+
+* **Soporte Multilingüe:** Inglés, Turco, Árabe, Chino, Hindi, Español, Francés, Bengalí y Ruso.
+* **Uso Básico:** Añade hasta 10 enlaces a la vez. Usa la opción "Compartir" en YouTube y selecciona Ridm para descargar al instante.
+* **Carpetas Inteligentes:** Clasificación automática de descargas por tipo de archivo (Video, Audio).
+* **Selección Avanzada de Formato:** Descarga la máxima resolución disponible. Si seleccionas 4K y no está disponible, pasará al siguiente archivo.
+* **Audio y Subtítulos:** Formatos MP3, M4A y Opus. Selecciona M4A para subtítulos integrados.
+* **Preferencia de Subtítulos:** Configura hasta 3 idiomas de subtítulos para descargas por lotes automáticas.
+
+### ⚠️ Advertencias Importantes
+
+* **Batería:** Configura el uso de la batería como "Sin restricciones" para descargas en segundo plano.
+* **Ubicación de Descarga:** Selecciona una carpeta en tu primer uso.
+
+### 🍪 Cookies / Autenticación
+
+Para contenido de Instagram o YouTube con restricción de edad:
+1. Instala una extensión "cookies.txt" en tu navegador.
+2. Inicia sesión en YouTube o Instagram.
+3. Guarda el archivo cookies.txt en tu móvil.
+4. Vincula este archivo desde la configuración de la app.
+
+### ☕ Soporte y Contacto
+
+Ridm es completamente gratuito. Contáctame en mremiyum@proton.me para reportar errores o donar.
+
+**Donaciones Cripto:**
+* **Bitcoin (BTC):** bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu
+* **Litecoin (LTC):** Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY
+* **Tron (USDT-TRC20):** TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp
+
+*Desarrollado por mremiyum*

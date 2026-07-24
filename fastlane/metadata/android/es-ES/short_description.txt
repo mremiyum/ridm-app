@@ -1,0 +1,1 @@
+Potente gestor de descargas de código abierto que admite 9 idiomas.

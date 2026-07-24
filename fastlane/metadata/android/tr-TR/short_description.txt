@@ -1,0 +1,1 @@
+Ridm, 9 dil destekleyen güçlü, açık kaynaklı bir medya indirme yöneticisidir.

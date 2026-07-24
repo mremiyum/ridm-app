@@ -1,0 +1,36 @@
+**Raid - inspect - download - manage**
+
+Ridm, 9 dili destekleyen güçlü ve açık kaynaklı bir medya indirme yöneticisidir. Temel bir indirme yöneticisi olmanın yanı sıra, YouTube ve Instagram gibi platformlardan medyaları tek tek veya toplu olarak indirebilme yeteneğine sahiptir. Arka planda yt-dlp motorunun gücünü kullanır.
+
+### 🌟 Özellikler
+
+* **Çoklu Dil Desteği:** İngilizce, Türkçe, Arapça, Çince, Hintçe, İspanyolca, Fransızca, Bengalce ve Rusça için tam destek. (Uygulama evrensel kullanım için varsayılan olarak İngilizce başlar; dil ayarlardan anında değiştirilebilir).
+* **Temel Kullanım ve Entegrasyon:** Enter tuşuna basarak ayırdığınız 10'a kadar bağlantıyı aynı anda ekleyebilirsiniz. YouTube uygulamasında (veya diğerlerinde) herhangi bir videoda "Paylaş"a dokunup Ridm'i seçerseniz, bağlantı otomatik olarak analiz edilir ve indirilmeye hazır hale gelir.
+* **Akıllı Klasörler:** Etkinleştirildiğinde, indirilenler medya türüne (Video, Ses vb.) göre otomatik olarak alt klasörlere ayrılır.
+* **Gelişmiş Format Seçimi:** Oynatma Listesi ve Kanal indirmeleri için format seçeneklerinde "En İyi Kalite"yi seçmek, kaynak sunucudaki en yüksek çözünürlüklü ve kaliteli videoları çeker. 2160p (4K) veya 1080p seçildiğinde o çözünürlük yoksa, o dosyayı atlar ve sonrakine geçer.
+* **Ses ve Altyazı Desteği:** MP3, M4A ve Opus formatları yalnızca ses dosyalarını indirir. Gömülü altyazılı bir ses dosyası indirmek istiyorsanız M4A formatını seçmelisiniz.
+* **Toplu Altyazı Tercihi:** Ayarlar menüsündeki 'Altyazı Tercih Sırası', toplu indirmeler sırasında her video için tek tek altyazı seçme zahmetinden sizi kurtarır. "Otomatik Sıralama"yı etkinleştirirseniz, sistem belirlediğiniz 3 dili sırasıyla kontrol eder ve bulduğu ilk dili otomatik olarak gömer.
+
+### ⚠️ Önemli Uyarılar
+
+* **Pil Kısıtlamaları:** İndirme işleminin arka planda kesintisiz devam edebilmesi için Android güç seçeneklerinde uygulamanın pil kullanımının "Kısıtlanmamış" olarak ayarlanması gerekir.
+* **İndirme Konumu:** İlk açılışta, Ayarlar menüsünden bir indirme klasörü seçmeniz zorunludur.
+
+### 🍪 Çerezler / Kimlik Doğrulama
+
+Instagram veya yaş kısıtlaması olan YouTube içeriklerini indirmek için hesabınızı uygulamaya bağlamanız gerekir:
+1. Masaüstü tarayıcınıza veya mobil cihazınıza eklenti mağazasından (Chrome, Firefox vb.) bir "cookies.txt" eklentisi yükleyin.
+2. Tarayıcınızdan YouTube veya Instagram'a giriş yapın.
+3. Eklenti simgesine tıklayın ve cookies.txt dosyasını mobil cihazınızda herhangi bir konuma kaydetmek için İndir seçeneğini kullanın.
+4. Uygulama Ayarlarına gidin, "cookies.txt seç" butonuna tıklayın ve bu dosyayı uygulamaya bağlayın.
+
+### ☕ Destek ve İletişim
+
+Ridm tamamen ücretsiz ve açık kaynaklıdır. Hataları bildirmek, geliştirme sürecine katkıda bulunmak veya projeyi desteklemek için e-posta (mremiyum@proton.me) yoluyla iletişime geçebilirsiniz.
+
+**Kripto Bağış Adresleri:**
+* **Bitcoin (BTC):** bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu
+* **Litecoin (LTC):** Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY
+* **Tron (USDT-TRC20):** TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp
+
+*mremiyum tarafından geliştirilmiştir*

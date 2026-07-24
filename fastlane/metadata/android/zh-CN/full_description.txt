@@ -1,0 +1,36 @@
+**Raid - inspect - download - manage**
+
+Ridm 是一款强大的开源媒体下载管理器，支持 9 种语言。除了作为基本的下载管理器，它还能从 YouTube 和 Instagram 等平台单独或批量下载媒体内容。底层采用强大的 yt-dlp 引擎。
+
+### 🌟 主要功能
+
+* **多语言支持：** 支持英语、土耳其语、阿拉伯语、中文、印地语、西班牙语、法语、孟加拉语和俄语。
+* **基本使用与集成：** 一次最多可添加 10 个链接。在 YouTube 应用中点击“分享”并选择 Ridm 即可快速下载。
+* **智能文件夹：** 下载内容会自动按媒体类型（视频、音频等）分类到子文件夹中。
+* **高级格式选择：** 支持下载最高分辨率视频。如果所选的 4K 分辨率不可用，系统会自动跳过该文件。
+* **音频与字幕支持：** 支持 MP3、M4A 和 Opus。要下载内嵌字幕的音频，请选择 M4A 格式。
+* **批量字幕偏好：** 在设置中预设 3 种语言，系统会自动查找并嵌入字幕。
+
+### ⚠️ 重要提示
+
+* **电池限制：** 请在 Android 电源选项中将应用的电池使用情况设置为“无限制”，以确保后台下载不中断。
+* **下载位置：** 首次启动时，必须在设置菜单中选择一个下载文件夹。
+
+### 🍪 Cookies / 身份验证
+
+要下载 Instagram 或 YouTube 年龄限制内容，必须绑定您的帐户：
+1. 在浏览器中安装 "cookies.txt" 扩展。
+2. 登录 YouTube 或 Instagram。
+3. 将 cookies.txt 文件下载到移动设备。
+4. 在应用设置中绑定此文件。
+
+### ☕ 支持与联系
+
+Ridm 完全免费且开源。您可以通过电子邮件 (mremiyum@proton.me) 联系我报告错误或捐赠支持。
+
+**加密货币捐赠地址：**
+* **Bitcoin (BTC):** bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu
+* **Litecoin (LTC):** Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY
+* **Tron (USDT-TRC20):** TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp
+
+*由 mremiyum 开发*
