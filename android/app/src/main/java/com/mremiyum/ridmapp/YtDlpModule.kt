@@ -18,11 +18,17 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 import java.io.File
+import java.util.logging.Logger
+import java.util.logging.Level
+import org.jaudiotagger.audio.AudioFileIO
+import org.jaudiotagger.tag.FieldKey
 
 class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext), ActivityEventListener {
     
     init {
         reactContext.addActivityEventListener(this)
+        // jaudiotagger'ın gereksiz loglarını susturmak için
+        Logger.getLogger("org.jaudiotagger").level = Level.OFF
     }
 
     override fun getName(): String = "YtDlpBridge"
@@ -168,8 +174,6 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val appCtx = reactApplicationContext.applicationContext as android.app.Application
-                // DÜZELTME: tempDir.deleteRecursively() kodu silindi, yarım indirmeler artık güvende!
-                
                 YoutubeDL.getInstance().init(appCtx)
                 FFmpeg.getInstance().init(appCtx)
                 try { YoutubeDL.getInstance().updateYoutubeDL(appCtx, YoutubeDL.UpdateChannel.STABLE) } catch (e: Exception) {}
@@ -224,8 +228,43 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
         if (smartFolder.isNotEmpty()) {
             docTree = docTree.findFile(smartFolder) ?: docTree.createDirectory(smartFolder) ?: return ""
         }
+        
         for (file in files) {
-            if (file.isFile && !file.name.endsWith(".part") && !file.name.endsWith(".ytdl")) {
+            // DİKKAT: .lrc dosyalarını tek başına taşımamak için if bloğuna "!file.name.endsWith(".lrc")" eklendi.
+            // Çünkü LRC'yi müzik dosyasının içine gömüp sileceğiz.
+            if (file.isFile && !file.name.endsWith(".part") && !file.name.endsWith(".ytdl") && !file.name.endsWith(".lrc")) {
+                
+                // --- JAUDIOTAGGER İLE MÜZİKLERE LRC GÖMME İŞLEMİ ---
+                val ext = file.extension.lowercase()
+                if (ext == "mp3" || ext == "m4a" || ext == "opus") {
+                    // Müzik dosyasının adıyla başlayan lrc dosyasını bul
+                    val lrcFiles = compDir.listFiles { _, name -> 
+                        name.startsWith(file.nameWithoutExtension) && name.endsWith(".lrc") 
+                    }
+                    if (lrcFiles != null && lrcFiles.isNotEmpty()) {
+                        val lrcFile = lrcFiles[0]
+                                              try {
+                            val lyrics = lrcFile.readText()
+                            val audioF = AudioFileIO.read(file)
+                            var tag = audioF.tag
+                            if (tag == null) {
+                                tag = audioF.createDefaultTag()
+                                audioF.tag = tag
+                            }
+                            // Sözleri müzik etiketine kalıcı olarak mühürle
+                            tag.setField(FieldKey.LYRICS, lyrics)
+                            audioF.commit()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        } finally {
+                            // HATA OLSA DA OLMASA DA, işin sonunda o lrc dosyasını çöpe at!
+                            lrcFile.delete()
+                        }
+
+                    }
+                }
+                
+                // --- STANDART TAŞIMA İŞLEMİ (VİDEO VE İÇİNE SÖZ GÖMÜLMÜŞ MÜZİKLER İÇİN) ---
                 val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(file.extension) ?: "application/octet-stream"
                 val newFile = docTree.createFile(mimeType, file.name)
                 if (newFile != null) {
@@ -249,7 +288,6 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
         return lastSavedUri
     }
 
-    // DÜZELTME: isBulk parametresi eklendi
     @ReactMethod
     fun downloadMedia(id: String, url: String, formatId: String, subId: String, playlistItems: String, downloadDir: String, smartFolder: String, cookiesPath: String, isBulk: Boolean, promise: Promise) {
         GlobalScope.launch(Dispatchers.IO) {
@@ -285,12 +323,12 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                 request.addOption("--paths", compDir.absolutePath) 
                 request.addOption("-o", "%(title)s.%(ext)s")
                 request.addOption("--no-check-certificate")
-                // DÜZELTME: Chrome tarayıcı algısı SADECE Instagram linklerinde devreye girer
+                
                 if (url.contains("instagram.com", ignoreCase = true)) {
                     request.addOption("--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
                     request.addOption("--referer", "https://www.instagram.com/")
                 }
-                // DÜZELTME: Arşiv dosyası SADECE toplu indirmelerde devreye girer
+                
                 if (isBulk) {
                     val archiveFile = File(appCtx.getExternalFilesDir(null), "ridm_archive.txt")
                     request.addOption("--download-archive", archiveFile.absolutePath)
@@ -305,16 +343,12 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                         "mp3" -> {
                             request.addOption("-f", "bestaudio/best")
                             request.addOption("--audio-format", "mp3")
-                            // MP3 için YouTube'da orijinal stream olmadığından dönüştürme yapılır, 
-                            // ancak audio-quality 0 silindiği için dosya boyutu gereksiz şişmez, orijinal kbps korunur.
                         }
                         "m4a" -> {
-                            // YouTube'daki orijinal M4A akışını çeker. FFmpeg sesi dönüştürmez, sadece kopyalar.
                             request.addOption("-f", "bestaudio[ext=m4a]/bestaudio")
                             request.addOption("--audio-format", "m4a")
                         }
                         "opus" -> {
-                            // YouTube'daki orijinal Opus akışını çeker.
                             request.addOption("-f", "bestaudio[ext=webm]/bestaudio")
                             request.addOption("--audio-format", "opus")
                         }
@@ -323,7 +357,6 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                         }
                     }
                     
-                    // M4A için Kapak fotoğrafı (Thumbnail), Metadata ve Altyazıların bozulmadan gömülmesi için:
                     request.addOption("--embed-metadata")
                     request.addOption("--embed-thumbnail")
                 } else {
@@ -348,15 +381,16 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                     request.addOption("--write-auto-subs")
                     if (subId != "all") request.addOption("--sub-langs", subId)
 
-                    if (formatId == "mp3" || formatId == "opus") {
-                        // MP3 ve Opus için gömme (embed) yapmıyoruz. 
-                        // Sadece altyazıyı indirip LRC (şarkı sözü) formatına dönüştürüyoruz.
-                        // yt-dlp bu LRC dosyasını ses dosyasıyla aynı isimde klasöre bırakacak.
+                    // BURAYA DİKKAT: Ses ve Video yollarını mükemmel şekilde ayırıyoruz.
+                    if (isAudioOnly) {
+                        // SES İÇİN: VTT dosyasını LRC'ye çevirip yanına bırakıyor. 
+                        // (Sonra Jaudiotagger onu alıp M4A/MP3 içine gömecek)
                         request.addOption("--convert-subs", "lrc")
                     } else {
-                        // M4A ve Videolar için altyazıyı doğrudan dosyanın içine gömüyoruz.
+                        // VİDEO İÇİN: Eski sistemin aynısı, MKV'ye donanımsal SRT gömer.
+                        // Videolarının çalışma mimarisine zerre dokunulmadı!
                         request.addOption("--embed-subs")
-                        request.addOption("--compat-options", "no-keep-subs") // Gömüldükten sonra dışarıdaki srt'yi sil
+                        request.addOption("--compat-options", "no-keep-subs")
                         request.addOption("--sub-format", "srt/best")
                         request.addOption("--convert-subs", "srt")
                     }

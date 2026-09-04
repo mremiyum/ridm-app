@@ -3,7 +3,7 @@
     "name": "ridm-app",
     "slug": "ridm-app",
     "scheme": "ridm",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -24,7 +24,8 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.mremiyum.ridmapp"
+      "package": "com.mremiyum.ridmapp",
+      "versionCode": 11
     },
     "web": {
       "favicon": "./assets/favicon.png"
