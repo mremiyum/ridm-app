@@ -161,6 +161,7 @@ android {
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
+    implementation 'net.jthink:jaudiotagger:3.0.1'
     implementation("com.facebook.react:react-android")
     implementation 'io.github.junkfood02.youtubedl-android:library:0.18.1'
     implementation 'io.github.junkfood02.youtubedl-android:ffmpeg:0.18.1'
