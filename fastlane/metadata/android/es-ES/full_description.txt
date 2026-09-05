@@ -1,36 +1,33 @@
-**Raid - inspect - download - manage**
-
-Ridm es un potente gestor de descargas multimedia de código abierto que admite 9 idiomas. Además de ser un gestor básico, permite descargar contenido de plataformas como YouTube e Instagram, individualmente o por lotes, utilizando el motor yt-dlp.
-
-### 🌟 Características
-
-* **Soporte Multilingüe:** Inglés, Turco, Árabe, Chino, Hindi, Español, Francés, Bengalí y Ruso.
-* **Uso Básico:** Añade hasta 10 enlaces a la vez. Usa la opción "Compartir" en YouTube y selecciona Ridm para descargar al instante.
-* **Carpetas Inteligentes:** Clasificación automática de descargas por tipo de archivo (Video, Audio).
-* **Selección Avanzada de Formato:** Descarga la máxima resolución disponible. Si seleccionas 4K y no está disponible, pasará al siguiente archivo.
-* **Audio y Subtítulos:** Formatos MP3, M4A y Opus. Selecciona M4A para subtítulos integrados.
-* **Preferencia de Subtítulos:** Configura hasta 3 idiomas de subtítulos para descargas por lotes automáticas.
-
-### ⚠️ Advertencias Importantes
-
-* **Batería:** Configura el uso de la batería como "Sin restricciones" para descargas en segundo plano.
-* **Ubicación de Descarga:** Selecciona una carpeta en tu primer uso.
-
-### 🍪 Cookies / Autenticación
-
-Para contenido de Instagram o YouTube con restricción de edad:
-1. Instala una extensión "cookies.txt" en tu navegador.
-2. Inicia sesión en YouTube o Instagram.
-3. Guarda el archivo cookies.txt en tu móvil.
-4. Vincula este archivo desde la configuración de la app.
-
-### ☕ Soporte y Contacto
-
-Ridm es completamente gratuito. Contáctame en mremiyum@proton.me para reportar errores o donar.
-
-**Donaciones Cripto:**
-* **Bitcoin (BTC):** bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu
-* **Litecoin (LTC):** Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY
-* **Tron (USDT-TRC20):** TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp
-
-*Desarrollado por mremiyum*
+<p><b>Raid - inspect - download - manage</b></p>
+<p>Ridm es un potente gestor de descargas de medios de código abierto compatible con 9 idiomas. Además de ser un gestor de descargas básico, tiene la capacidad de descargar medios de plataformas como YouTube e Instagram de forma individual o en lote. Utiliza el poder del motor yt-dlp en segundo plano.</p>
+<h3>🌟 Características</h3>
+<ul>
+<li><b>Soporte Multilingüe:</b> Soporte completo para inglés, turco, árabe, chino, hindi, español, francés, bengalí y ruso. (La aplicación se inicia en inglés por defecto para un uso universal; el idioma se puede cambiar instantáneamente en los ajustes).</li>
+<li><b>Uso Básico e Integración:</b> Puede agregar hasta 10 enlaces simultáneamente, separados presionando la tecla Enter. Si toca "Compartir" en cualquier video en la aplicación de YouTube (u otras) y selecciona Ridm, el enlace se analiza automáticamente y queda listo para su descarga.</li>
+<li><b>Carpetas Inteligentes:</b> Cuando está habilitado, las descargas se clasifican automáticamente en subcarpetas según el tipo de medio (Video, Audio, etc.).</li>
+<li><b>Selección de Formato Avanzada:</b> Seleccionar "Mejor Calidad" en las opciones de formato para descargas de listas de reproducción y canales obtiene los videos de mayor resolución y calidad del servidor de origen. Si se selecciona 2160p (4K) o 1080p y esa resolución no está disponible, omite ese archivo y pasa al siguiente.</li>
+<li><b>Soporte de Audio y Subtítulos:</b> Los formatos MP3, M4A y Opus solo descargan archivos de audio. Si desea descargar un archivo de audio con subtítulos incrustados, puede elegir el formato MP3 o M4A.</li>
+<li><b>Preferencia de Subtítulos en Lote:</b> El 'Orden de Preferencia de Subtítulos' en el menú de Ajustes le ahorra la molestia de seleccionar subtítulos para cada video individualmente durante descargas masivas. Si habilita la "Clasificación Automática", el sistema verifica sus 3 idiomas especificados en orden e incrusta automáticamente el primero que encuentra.</li>
+</ul>
+<h3>⚠️ Advertencias Importantes</h3>
+<ul>
+<li><b>Restricciones de Batería:</b> Para garantizar que el proceso de descarga continúe ininterrumpidamente en segundo plano, el uso de la batería de la aplicación debe configurarse como "Sin restricciones" en las opciones de energía de Android.</li>
+<li><b>Ubicación de Descarga:</b> En el primer inicio, es obligatorio seleccionar una carpeta de descarga desde el menú de Ajustes.</li>
+</ul>
+<h3>🍪 Cookies / Autenticación</h3>
+<p>Para descargar contenido de Instagram o videos de YouTube con restricción de edad, debe conectar su cuenta a la aplicación:</p>
+<ol>
+<li>Instale una extensión "cookies.txt" desde la tienda de extensiones (Chrome, Firefox, etc.) en su navegador de escritorio o dispositivo móvil.</li>
+<li>Inicie sesión en YouTube o Instagram desde su navegador.</li>
+<li>Haga clic en el ícono de la extensión y use la opción Descargar para guardar el archivo cookies.txt en cualquier ubicación de su dispositivo móvil.</li>
+<li>Vaya a los Ajustes de la aplicación, haga clic en el botón "Seleccionar cookies.txt" y vincule este archivo a la aplicación.</li>
+</ol>
+<h3>☕ Soporte y Contacto</h3>
+<p>Ridm es completamente gratuito y de código abierto. Puede contactarnos por correo electrónico (mremiyum@proton.me) para informar errores, contribuir al proceso de desarrollo o apoyar el proyecto.</p>
+<p><b>Direcciones de Donación de Criptomonedas:</b></p>
+<ul>
+<li><b>Bitcoin (BTC):</b> bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu</li>
+<li><b>Litecoin (LTC):</b> Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY</li>
+<li><b>Tron (USDT-TRC20):</b> TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp</li>
+</ul>
+<p><i>Desarrollado por mremiyum</i></p>

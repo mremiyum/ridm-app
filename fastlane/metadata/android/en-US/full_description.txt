@@ -1,36 +1,33 @@
-**Raid - inspect - download - manage**
-
-Ridm is a powerful, open-source media download manager supporting 9 languages. In addition to being a basic download manager, it has the capability to download media content from platforms like YouTube and Instagram individually or in bulk. It utilizes the power of the yt-dlp engine under the hood.
-
-### 🌟 Features
-
-* **Multi-Language Support:** Full support for English, Turkish, Arabic, Chinese, Hindi, Spanish, French, Bengali, and Russian. (The app launches in English by default for universal use; the language can be changed instantly from the settings).
-* **Basic Usage & Integration:** You can add up to 10 links at once, separated by pressing Enter. If you tap "Share" on any video in the YouTube app (or others) and select Ridm, the link is automatically analyzed and ready for download.
-* **Smart Folders:** When activated, your downloads are automatically sorted into subfolders based on their media type (Video, Audio, etc.).
-* **Advanced Format Selection:** Selecting "Best Quality" in the format options for Playlist and Channel downloads fetches the highest resolution and quality videos available on the source server. If 2160p (4K) or 1080p is selected and that resolution is unavailable, it skips that file and moves to the next.
-* **Audio & Subtitle Support:** MP3, M4A, and Opus formats download audio-only files. If you want to download an audio file with embedded subtitles, you must select the M4A format.
-* **Bulk Subtitle Preference:** The 'Subtitle Preference Order' in the Settings menu saves you the hassle of selecting subtitles for each video individually during bulk downloads. If you enable "Auto Sequence", the system checks for your specified 3 languages in order and automatically embeds the first one it finds.
-
-### ⚠️ Important Warnings
-
-* **Battery Restrictions:** In order for the download process to continue uninterrupted in the background, the app's battery usage must be set to "Unrestricted" in Android power options.
-* **Download Location:** Upon your first launch, it is mandatory to select a download folder from the Settings menu.
-
-### 🍪 Cookies / Authentication
-
-To download Instagram or age-restricted YouTube content, you must link your account to the application:
-1. Install a "cookies.txt" extension from the extension store (Chrome, Firefox Browser ADD-ONS, etc.) on your desktop browser or mobile device.
-2. Log in to YouTube or Instagram from your browser.
-3. Click on the extension icon and use the Download option to save the cookies.txt file to any location on your mobile device.
-4. Go to App Settings, click the "Select cookies.txt" button, and link this file to the app.
-
-### ☕ Support & Contact
-
-Ridm is completely free and open-source. You can contact me via email (mremiyum@proton.me) to report bugs, contribute to the development process, or donate to support the project.
-
-**Crypto Donation Addresses:**
-* **Bitcoin (BTC):** bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu
-* **Litecoin (LTC):** Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY
-* **Tron (USDT-TRC20):** TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp
-
-*Developed by mremiyum*
+<p><b>Raid - inspect - download - manage</b></p>
+<p>Ridm is a powerful, open-source media download manager supporting 9 languages. Besides being a basic download manager, it can download media from platforms like YouTube and Instagram individually or in bulk. It uses the power of the yt-dlp engine in the background.</p>
+<h3>🌟 Features</h3>
+<ul>
+<li><b>Multi-Language Support:</b> Full support for English, Turkish, Arabic, Chinese, Hindi, Spanish, French, Bengali, and Russian. (The app starts in English by default for universal use; the language can be changed instantly in settings).</li>
+<li><b>Basic Usage and Integration:</b> You can add up to 10 links simultaneously, separated by pressing the Enter key. If you tap "Share" on any video in the YouTube app (or others) and select Ridm, the link is automatically analyzed and ready for download.</li>
+<li><b>Smart Folders:</b> When enabled, downloads are automatically sorted into subfolders based on media type (Video, Audio, etc.).</li>
+<li><b>Advanced Format Selection:</b> Selecting "Best Quality" in format options for Playlist and Channel downloads fetches the highest resolution and quality videos from the source server. If 2160p (4K) or 1080p is selected and that resolution is unavailable, it skips that file and moves to the next.</li>
+<li><b>Audio and Subtitle Support:</b> MP3, M4A, and Opus formats only download audio files. If you want to download an audio file with embedded subtitles, you can choose the MP3 or M4A format.</li>
+<li><b>Bulk Subtitle Preference:</b> The 'Subtitle Preference Order' in the Settings menu saves you from the hassle of selecting subtitles for each video individually during bulk downloads. If you enable "Auto Sort", the system checks your 3 specified languages in order and automatically embeds the first one it finds.</li>
+</ul>
+<h3>⚠️ Important Warnings</h3>
+<ul>
+<li><b>Battery Restrictions:</b> To ensure the download process continues uninterrupted in the background, the app's battery usage must be set to "Unrestricted" in Android power options.</li>
+<li><b>Download Location:</b> Upon first launch, you are required to select a download folder from the Settings menu.</li>
+</ul>
+<h3>🍪 Cookies / Authentication</h3>
+<p>To download content from Instagram or age-restricted YouTube videos, you need to connect your account to the app:</p>
+<ol>
+<li>Install a "cookies.txt" extension from the extension store (Chrome, Firefox, etc.) on your desktop browser or mobile device.</li>
+<li>Log in to YouTube or Instagram from your browser.</li>
+<li>Click the extension icon and use the Download option to save the cookies.txt file to any location on your mobile device.</li>
+<li>Go to App Settings, click the "Select cookies.txt" button, and link this file to the app.</li>
+</ol>
+<h3>☕ Support and Contact</h3>
+<p>Ridm is completely free and open-source. You can contact us via email (mremiyum@proton.me) to report bugs, contribute to the development process, or support the project.</p>
+<p><b>Crypto Donation Addresses:</b></p>
+<ul>
+<li><b>Bitcoin (BTC):</b> bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu</li>
+<li><b>Litecoin (LTC):</b> Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY</li>
+<li><b>Tron (USDT-TRC20):</b> TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp</li>
+</ul>
+<p><i>Developed by mremiyum</i></p>
