@@ -1,33 +1,29 @@
-<p><b>Raid - inspect - download - manage</b></p>
-<p>Ridm est un puissant gestionnaire de téléchargement multimédia open-source prenant en charge 9 langues. En plus d'être un gestionnaire de téléchargement de base, il a la capacité de télécharger des médias à partir de plateformes telles que YouTube et Instagram individuellement ou par lots. Il utilise la puissance du moteur yt-dlp en arrière-plan.</p>
+<p><b>Ridm - inspectez, téléchargez, gérez</b></p>
+<p>Ridm est un puissant gestionnaire de téléchargement multimédia open-source. Il télécharge des médias depuis YouTube, Instagram et plus, individuellement ou par lots, grâce au moteur yt-dlp.</p>
+
 <h3>🌟 Fonctionnalités</h3>
 <ul>
-<li><b>Support Multilingue:</b> Prise en charge complète de l'anglais, du turc, de l'arabe, du chinois, de l'hindi, de l'espagnol, du français, du bengali et du russe. (L'application démarre en anglais par défaut pour une utilisation universelle ; la langue peut être modifiée instantanément dans les paramètres).</li>
-<li><b>Utilisation de Base et Intégration:</b> Vous pouvez ajouter jusqu'à 10 liens simultanément, séparés en appuyant sur la touche Entrée. Si vous appuyez sur "Partager" sur n'importe quelle vidéo dans l'application YouTube (ou d'autres) et sélectionnez Ridm, le lien est automatiquement analysé et prêt à être téléchargé.</li>
-<li><b>Dossiers Intelligents:</b> Lorsqu'il est activé, les téléchargements sont automatiquement triés dans des sous-dossiers en fonction du type de média (Vidéo, Audio, etc.).</li>
-<li><b>Sélection de Format Avancée:</b> La sélection de la "Meilleure Qualité" dans les options de format pour les téléchargements de listes de lecture et de chaînes récupère les vidéos de la plus haute résolution et qualité à partir du serveur source. Si 2160p (4K) ou 1080p est sélectionné et que cette résolution n'est pas disponible, il ignore ce fichier et passe au suivant.</li>
-<li><b>Support Audio et Sous-titres:</b> Les formats MP3, M4A et Opus téléchargent uniquement des fichiers audio. Si vous souhaitez télécharger un fichier audio avec des sous-titres intégrés, vous pouvez choisir le format MP3 ou M4A.</li>
-<li><b>Préférence de Sous-titres par Lot:</b> L'« Ordre de Préférence des Sous-titres » dans le menu Paramètres vous évite d'avoir à sélectionner les sous-titres pour chaque vidéo individuellement lors de téléchargements groupés. Si vous activez le "Tri Automatique", le système vérifie vos 3 langues spécifiées dans l'ordre et intègre automatiquement la première qu'il trouve.</li>
+<li><b>Multilingue:</b> Prend en charge 9 langues (Français, Anglais, etc.).</li>
+<li><b>Intégration facile:</b> Partagez une vidéo depuis l'application source vers Ridm pour lancer le téléchargement.</li>
+<li><b>Dossiers Intelligents:</b> Tri automatique par type de média.</li>
+<li><b>Format & Résolution:</b> Sélectionnez la meilleure qualité (jusqu'à 4K) ou téléchargez uniquement l'audio (MP3, M4A, Opus).</li>
+<li><b>Sous-titres:</b> Intégration automatique des sous-titres selon vos préférences.</li>
 </ul>
-<h3>⚠️ Avertissements Importants</h3>
+
+<h3>⚠️ Important</h3>
 <ul>
-<li><b>Restrictions de Batterie:</b> Pour garantir que le processus de téléchargement se poursuit sans interruption en arrière-plan, l'utilisation de la batterie de l'application doit être définie sur "Non restreinte" dans les options d'alimentation Android.</li>
-<li><b>Emplacement de Téléchargement:</b> Lors du premier lancement, il est obligatoire de sélectionner un dossier de téléchargement dans le menu Paramètres.</li>
+<li><b>Batterie:</b> Réglez l'utilisation sur "Non restreinte" pour les téléchargements en arrière-plan.</li>
+<li><b>Stockage:</b> Sélectionnez un dossier de téléchargement au premier lancement.</li>
 </ul>
-<h3>🍪 Cookies / Authentification</h3>
-<p>Pour télécharger du contenu d'Instagram ou des vidéos YouTube soumises à une limite d'âge, vous devez connecter votre compte à l'application:</p>
-<ol>
-<li>Installez une extension "cookies.txt" à partir de la boutique d'extensions (Chrome, Firefox, etc.) sur votre navigateur de bureau ou appareil mobile.</li>
-<li>Connectez-vous à YouTube ou Instagram depuis votre navigateur.</li>
-<li>Cliquez sur l'icône de l'extension et utilisez l'option Télécharger pour enregistrer le fichier cookies.txt à n'importe quel emplacement sur votre appareil mobile.</li>
-<li>Allez dans les Paramètres de l'application, cliquez sur le bouton "Sélectionner cookies.txt" et liez ce fichier à l'application.</li>
-</ol>
-<h3>☕ Support et Contact</h3>
-<p>Ridm est entièrement gratuit et open-source. Vous pouvez nous contacter par e-mail (mremiyum@proton.me) pour signaler des bugs, contribuer au processus de développement ou soutenir le projet.</p>
-<p><b>Adresses de Don Crypto:</b></p>
+
+<h3>🍪 Cookies / Authentification (Contenu restreint)</h3>
+<p>Pour le contenu restreint : Exportez vos cookies (format cookies.txt) depuis votre navigateur à l'aide d'une extension, puis liez ce fichier dans les paramètres de Ridm.</p>
+
+<h3>☕ Support</h3>
+<p>Projet gratuit et open-source par mremiyum.</p>
+<p><b>Dons:</b></p>
 <ul>
-<li><b>Bitcoin (BTC):</b> bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu</li>
-<li><b>Litecoin (LTC):</b> Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY</li>
-<li><b>Tron (USDT-TRC20):</b> TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp</li>
+<li><b>BTC:</b> bc1qa5v5vlppp5nn9kdtt2wz4x9pfuupm92hjpd6eu</li>
+<li><b>LTC:</b> Lf4HincsmEvEJ1cxwJkomXLN72JH7etWRY</li>
+<li><b>USDT:</b> TUZksjGTYmSeKaprQJQtomTdPXb4ew9mrp</li>
 </ul>
-<p><i>Développé par mremiyum</i></p>
