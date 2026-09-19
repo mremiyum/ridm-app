@@ -46,3 +46,12 @@ Ridm is completely free and open-source. You can contact me via the email addres
 ---
 
 *Developed by mremiyum* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mremiyum@proton.me
+
+## F-Droid and GitHub builds
+
+Ridm is available from GitHub Releases and from F-Droid. F-Droid builds the
+app from source and signs it with its own key, so the two builds have
+different signatures and Android cannot update one over the other.
+
+If you want to switch between the two sources, uninstall the app first
+(this removes the app's data). The F-Droid build is arm64-v8a only.
