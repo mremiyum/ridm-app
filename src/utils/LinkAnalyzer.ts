@@ -35,7 +35,7 @@ const cleanCodec = (vcodec: string) => {
 
 export async function analyzeLink(url: string, cookiesPath: string = ''): Promise<AnalysisResult> {
   try {
-    if (!YtDlpBridge) throw new Error("YtDlpBridge modülü bulunamadı!");
+    if (!YtDlpBridge) throw new Error("YtDlpBridge module not found!");
 
     if (!isYtDlpInitialized) {
       await YtDlpBridge.init();
@@ -58,7 +58,7 @@ export async function analyzeLink(url: string, cookiesPath: string = ''): Promis
     }
 
     const rawJson = await YtDlpBridge.analyze(processUrl, cookiesPath);
-    if (!rawJson) throw new Error("Android'den boş JSON döndü.");
+    if (!rawJson) throw new Error("Android returned empty JSON.");
 
     const data = JSON.parse(rawJson);
 

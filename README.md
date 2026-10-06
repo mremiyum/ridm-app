@@ -18,7 +18,7 @@ Ridm is a powerful, open-source media manager supporting 9 languages. In additio
 * **🚀 Basic Usage & Integration:** You can add up to 10 links at once, separated by pressing Enter. If you tap "Share" on any video in the YouTube app (or others) and select Ridm, the link is automatically analyzed and ready for download.
 * **📂 Smart Folders:** When activated, your downloads are automatically sorted into subfolders based on their media type (Video, Audio, etc.).
 * **🎞️ Advanced Format Selection:** Selecting "Best Quality" in the format options for Playlist and Channel downloads fetches the highest resolution and quality videos available on the source server. If 2160p (4K) or 1080p is selected and that resolution is unavailable, it skips that file and moves to the next.
-* **🎵 Audio & Subtitle Support:** MP3, M4A, and Opus formats download audio-only files. If you want to download an audio file with embedded subtitles, you must select the **M4A** format.
+* **🎵 Audio & Subtitle Support:** MKV,MP3, M4A, and Opus formats all embed any available subtitles directly into the file.
 * **📝 Bulk Subtitle Preference:** The 'Subtitle Preference Order' in the Settings menu saves you the hassle of selecting subtitles for each video individually during bulk downloads. If you enable "Auto Sequence", the system checks for your specified 3 languages in order and automatically embeds the first one it finds.
 
 ## ⚠️ Important Warnings

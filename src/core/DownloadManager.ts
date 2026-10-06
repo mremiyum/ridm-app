@@ -32,7 +32,7 @@ export const startFileDownload = async (
 
     const metadata = await fetchFileMetadata(formattedUrl);
     if (!metadata) {
-      const errorMsg = 'Bağlantı kurulamadı veya link geçersiz.';
+      const errorMsg = 'Could not connect, or the link is invalid.';
       await writeLogEntry(baseDownloadPath, 'error', formattedUrl, errorMsg);
       onError(errorMsg);
       return;
@@ -49,8 +49,8 @@ export const startFileDownload = async (
     const conflictResult = await resolveFileConflict(targetFolder, metadata.fileName, metadata.size);
     
     if (conflictResult.action === 'skip') {
-      await writeLogEntry(targetFolder, 'skipped', metadata.fileName, 'Aynı isim ve boyutta dosya mevcut.');
-      onError('MÜKERRER_ATLANDI');
+      await writeLogEntry(targetFolder, 'skipped', metadata.fileName, 'A file with the same name and size already exists.');
++      onError('DUPLICATE_SKIPPED');
       return;
     }
 
@@ -96,7 +96,7 @@ export const startFileDownload = async (
           // DÜZELTME: baseDownloadPath değil, akıllı klasör işlenmiş targetFolder verilmeli ki doğru klasöre kopyalasın
           const publicUri = await exportToPublicFolder(result.uri, targetFolder, resolvedFileName, metadata.mimeType);
           if (publicUri) onFinished(publicUri);
-          else throw new Error('Dosya dış depolamaya aktarılamadı.');
+          else throw new Error('File could not be exported to external storage.');
       } else {
           const cleanTargetFolder = targetFolder.replace(/\/$/, '');
           const finalFileUri = `${cleanTargetFolder}/${resolvedFileName}`;
@@ -104,12 +104,12 @@ export const startFileDownload = async (
           onFinished(finalFileUri);
       }
     } else {
-      throw new Error('İndirme tamamlanamadı.');
+      throw new Error('Download could not be completed.');
     }
   } catch (error: any) {
     console.log('İndirme İptal / Hata:', error.message);
     await writeLogEntry(baseDownloadPath, 'error', url, error.message || 'Bilinmeyen Hata');
-    onError(error.message || 'İndirme hatası');
+    onError(error.message || 'Download error.');
   }
 };
 

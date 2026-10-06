@@ -24,7 +24,7 @@ export const exportToPublicFolder = async (
       mimeType
     );
 
-    if (!publicFileUri) throw new Error('Android hedef dosya kaydı oluşturulamadı.');
+    if (!publicFileUri) throw new Error('Android could not create the destination file record.');
 
     try {
       // 1. Yöntem: Standart kopyalama (Bazı cihazlarda engellenir)

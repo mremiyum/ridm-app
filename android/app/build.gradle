@@ -100,8 +100,8 @@ android {
         applicationId 'com.mremiyum.ridmapp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11 // <-- Versiyon Artır
-        versionName "1.1.1" // <-- Ver. Artır
+        versionCode 12 // <-- Versiyon Artır
+        versionName "1.1.2" // <-- Ver. Artır
 
         buildConfigField "String", "REACT_NATIVE_RELEASE_LEVEL", "\"${findProperty('reactNativeReleaseLevel') ?: 'stable'}\""
     }
@@ -161,7 +161,7 @@ android {
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
-    implementation 'net.jthink:jaudiotagger:3.0.1'
+    implementation 'com.github.Adonai:jaudiotagger:2.3.14'
     implementation("com.facebook.react:react-android")
     implementation 'io.github.junkfood02.youtubedl-android:library:0.18.1'
     implementation 'io.github.junkfood02.youtubedl-android:ffmpeg:0.18.1'

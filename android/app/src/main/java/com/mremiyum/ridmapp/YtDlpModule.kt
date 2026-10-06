@@ -176,10 +176,26 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                 val appCtx = reactApplicationContext.applicationContext as android.app.Application
                 YoutubeDL.getInstance().init(appCtx)
                 FFmpeg.getInstance().init(appCtx)
-                try { YoutubeDL.getInstance().updateYoutubeDL(appCtx, YoutubeDL.UpdateChannel.STABLE) } catch (e: Exception) {}
                 promise.resolve("Init OK")
             } catch (e: Exception) {
-                promise.reject("INIT_ERROR", "Motor başlatılamadı: ${e.message}")
+                promise.reject("INIT_ERROR", "Engine could not be started: ${e.message}")
+            }
+        }
+    }
+
+    // Only called when the user has explicitly turned on the "auto-update engine"
+    // setting (see App.tsx). F-Droid's inclusion policy requires explicit user
+    // consent before an app downloads additional executable code at runtime, so
+    // this must never run automatically unless that setting is on.
+    @ReactMethod
+    fun updateEngine(promise: Promise) {
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val appCtx = reactApplicationContext.applicationContext as android.app.Application
+                YoutubeDL.getInstance().updateYoutubeDL(appCtx, YoutubeDL.UpdateChannel.STABLE)
+                promise.resolve("Update OK")
+            } catch (e: Exception) {
+                promise.reject("UPDATE_ERROR", "Engine update failed: ${e.message}")
             }
         }
     }
@@ -215,7 +231,7 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                 val response = YoutubeDL.getInstance().execute(request, null, null)
                 promise.resolve(response.out)
             } catch (e: Exception) {
-                promise.reject("ANALYZE_ERROR", e.cause?.message ?: e.message ?: "Bilinmeyen yt-dlp Hatası")
+                promise.reject("ANALYZE_ERROR", e.cause?.message ?: e.message ?: "Unknown yt-dlp error")
             }
         }
     }

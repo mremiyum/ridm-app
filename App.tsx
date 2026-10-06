@@ -410,7 +410,7 @@ export default function App() {
         (progress: number, downloadedStr: string, speedStr: string) => { setItems(prev => prev.map(item => item.id === id ? { ...item, progress, downloaded: downloadedStr, speed: speedStr } : item)); },
         (finalPath: string) => { setItems(prev => prev.map(item => item.id === id ? { ...item, stage: 'finished', progress: 100, speed: t('completed'), fileUri: finalPath } : item)); },
         async (errorMsg: string) => {
-          if (errorMsg === 'MÜKERRER_ATLANDI') setItems(prev => prev.map(item => item.id === id ? { ...item, stage: 'error', type: 'skipped', errorMsg: t('skipped'), time: new Date().toLocaleTimeString() } : item));
+          if (errorMsg === 'DUPLICATE_SKIPPED') setItems(prev => prev.map(item => item.id === id ? { ...item, stage: 'error', type: 'skipped', errorMsg: t('skipped'), time: new Date().toLocaleTimeString() } : item));
           else setItems(prev => prev.map(item => item.id === id ? { ...item, stage: 'error', errorMsg: errorMsg, time: new Date().toLocaleTimeString() } : item));
         }
       );
@@ -658,8 +658,8 @@ export default function App() {
           baseLabel += ` ${t('ifNotAvail')}`;
       }
       
-      if (id === 'mp3' || id === 'opus') baseLabel += ` ${t('audioOnly')}`;
-      else if (id === 'm4a') baseLabel += ` ${t('audioSub')}`;
+      // mp3/m4a/opus used to show different "(Audio only)" / "(Audio + Sub)" labels here,
+      // but all three now embed lyrics the same way, so the distinction no longer applies.
 
       return baseLabel;
     };
@@ -865,6 +865,8 @@ export default function App() {
             </TouchableOpacity>
             
             <View style={[styles.settingsSwitchRow, { marginTop: 16 }]}><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}>{appSettings.isDarkTheme ? <Moon size={16} color={theme.primary} /> : <Sun size={16} color="#f59e0b" />}<Text style={styles.settingsSwitchTitle}>{appSettings.isDarkTheme ? t('darkTheme') : t('lightTheme')}</Text></View><Switch value={appSettings.isDarkTheme} onValueChange={(val) => setAppSettings({ isDarkTheme: val })} trackColor={{ false: theme.borderLight, true: theme.primary }} thumbColor="#fff" /></View>
+
+            <View style={[styles.settingsSwitchRow, { marginTop: 12 }]}><View style={{ flex: 1, marginRight: 8 }}><Text style={styles.settingsSwitchTitle}>{t('autoUpdateEngine')}</Text><Text style={styles.settingsSwitchSub}>{t('autoUpdateEngineSub')}</Text></View><Switch value={!!appSettings.ytdlpAutoUpdate} onValueChange={(val) => setAppSettings({ ytdlpAutoUpdate: val })} trackColor={{ false: theme.borderLight, true: theme.primary }} thumbColor="#fff" /></View>
             
             {/* DÜZENLENEN İLETİŞİM & DESTEK KARTI */}
             <View style={styles.supportCard}>
@@ -1024,7 +1026,7 @@ export default function App() {
             <View style={{ alignItems: 'center', marginBottom: 16, paddingBottom: 16, borderBottomWidth: 1, borderColor: theme.borderMain }}>
               <Text style={{ fontSize: 22, fontWeight: '900', color: theme.primary, letterSpacing: 1 }}>Ridm</Text>
               <Text style={{ fontSize: 11, color: theme.textSub, fontWeight: 'bold', letterSpacing: 0.5, marginTop: 4 }}>{t('slogan')}</Text>
-              <Text style={{ fontSize: 10, color: theme.borderLight, marginTop: 6, fontWeight: 'bold' }}>v1.1.1</Text>
+              <Text style={{ fontSize: 10, color: theme.borderLight, marginTop: 6, fontWeight: 'bold' }}>v1.1.2</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}><HelpCircle size={20} color={theme.primary} /><Text style={styles.modalTitle}>{t('helpTitle')}</Text></View>
             <ScrollView style={{ marginTop: 10, maxHeight: 300 }}>
