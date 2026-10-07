@@ -161,7 +161,9 @@ android {
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
-    implementation 'net.jthink:jaudiotagger:3.0.1'
+    // Adonai fork: Opus lyric support. If audio exports break again, revert
+    // to 'net.jthink:jaudiotagger:3.0.1' (no Opus support, but reliable).
+    implementation 'com.github.Adonai:jaudiotagger:2.3.14'
     implementation("com.facebook.react:react-android")
     implementation 'io.github.junkfood02.youtubedl-android:library:0.18.1'
     implementation 'io.github.junkfood02.youtubedl-android:ffmpeg:0.18.1'

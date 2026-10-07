@@ -50,7 +50,7 @@ export const startFileDownload = async (
     
     if (conflictResult.action === 'skip') {
       await writeLogEntry(targetFolder, 'skipped', metadata.fileName, 'A file with the same name and size already exists.');
-+      onError('DUPLICATE_SKIPPED');
+      onError('DUPLICATE_SKIPPED');
       return;
     }
 
