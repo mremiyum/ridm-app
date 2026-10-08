@@ -127,6 +127,25 @@ export default function App() {
           }
 
           setAppSettingsState(merged);
+
+          // The bundled yt-dlp goes stale quickly (YouTube/Instagram change often), so the
+          // engine update is needed for media downloads. F-Droid policy requires explicit
+          // user consent before downloading executable code, so ask once and remember.
+          if (merged.ytdlpAutoUpdate === undefined) {
+              Alert.alert(
+                  t('ytdlpConsentTitle'),
+                  t('ytdlpConsentMessage'),
+                  [
+                      { text: t('notNow'), style: 'cancel', onPress: () => setAppSettings({ ytdlpAutoUpdate: false }) },
+                      { text: t('allow'), onPress: () => {
+                          setAppSettings({ ytdlpAutoUpdate: true });
+                          if (YtDlpBridge && YtDlpBridge.updateEngine) YtDlpBridge.updateEngine().catch(() => {});
+                      } },
+                  ]
+              );
+          } else if (merged.ytdlpAutoUpdate === true) {
+              if (YtDlpBridge && YtDlpBridge.updateEngine) YtDlpBridge.updateEngine().catch(() => {});
+          }
        } catch (error) {
            setIsInitialLoadDone(true);
        }
@@ -310,7 +329,7 @@ export default function App() {
     try {
         const controller = new AbortController();
         setTimeout(() => controller.abort(), 3000);
-        await fetch('https://www.google.com/generate_204', { method: 'HEAD', signal: controller.signal });
+        await fetch('https://github.com', { method: 'HEAD', signal: controller.signal });
     } catch (e) {
         Alert.alert(t('error'), t('errNoInternet')); return;
     }
@@ -832,7 +851,7 @@ export default function App() {
             <TouchableOpacity style={styles.settingsActionRow} onPress={handlePickDirectory}><Folder size={16} color={theme.primary} />
                <Text style={styles.settingsRowText} numberOfLines={1}>{appSettings.downloadPath ? t('locSet') : t('locNotSet')}</Text>
             </TouchableOpacity>
-            {appSettings.downloadPath ? <Text style={styles.pathSubText} numberOfLines={2} ellipsizeMode="head">...{decodeURIComponent(appSettings.downloadPath).replace('content://com.android.externalstorage.documents/tree/primary:', 'Dahili Depolama/')}</Text> : null}
+            {appSettings.downloadPath ? <Text style={styles.pathSubText} numberOfLines={2} ellipsizeMode="head">...{decodeURIComponent(appSettings.downloadPath).replace('content://com.android.externalstorage.documents/tree/primary:', t('internalStorage') + '/')}</Text> : null}
             <View style={styles.settingsSwitchRow}><View style={{ flex: 1, marginRight: 8 }}><Text style={styles.settingsSwitchTitle}>{t('smartFolder')}</Text><Text style={styles.settingsSwitchSub}>{t('smartFolderSub')}</Text></View><Switch value={appSettings.smartFolder} onValueChange={(val) => setAppSettings({ smartFolder: val })} trackColor={{ false: theme.borderLight, true: theme.primary }} thumbColor="#fff" /></View>
             <Text style={[styles.sectionLabel, { marginTop: 16 }]}>{t('maxConcurrent')}</Text>
             <View style={styles.numberButtonGroup}>{[1, 2, 3, 4, 5].map(num => (<TouchableOpacity key={num} style={[styles.numberBtn, appSettings.maxConcurrentDownloads === num && styles.numberBtnActive]} onPress={() => setAppSettings({ maxConcurrentDownloads: num })}><Text style={[styles.numberBtnText, appSettings.maxConcurrentDownloads === num && { color: '#fff' }]}>{num}</Text></TouchableOpacity>))}</View>

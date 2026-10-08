@@ -176,10 +176,6 @@ class YtDlpModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
                 val appCtx = reactApplicationContext.applicationContext as android.app.Application
                 YoutubeDL.getInstance().init(appCtx)
                 FFmpeg.getInstance().init(appCtx)
-                // Restored: calling updateYoutubeDL here (not just on explicit consent)
-                // turned out to be required for the engine to work at all, not just to
-                // fetch newer versions. Diagnostic revert while we isolate the real bug.
-                try { YoutubeDL.getInstance().updateYoutubeDL(appCtx, YoutubeDL.UpdateChannel.STABLE) } catch (e: Exception) {}
                 promise.resolve("Init OK")
             } catch (e: Exception) {
                 promise.reject("INIT_ERROR", "Engine could not be started: ${e.message}")
