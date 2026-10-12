@@ -326,13 +326,7 @@ export default function App() {
         setIsSettingsOpen(true); return;
     }
 
-    try {
-        const controller = new AbortController();
-        setTimeout(() => controller.abort(), 3000);
-        await fetch('https://github.com', { method: 'HEAD', signal: controller.signal });
-    } catch (e) {
-        Alert.alert(t('error'), t('errNoInternet')); return;
-    }
+    // No separate connectivity pre-check: a failed analysis already reports its own error.
     processUrlList(rawLinks);
   };
 
